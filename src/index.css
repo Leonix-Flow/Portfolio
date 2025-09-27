@@ -1,12 +1,5 @@
 @import "tailwindcss";
-@layer theme {
-};
-@layer utilities {
-};
-@layer components {
-};
-@layer base {
-};
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -22,41 +15,3 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 };
-
-/* Carousel styles */
-.carousel {
-  position: relative;
-  width: 100%; /* Adjust as needed */
-  overflow: hidden;
-}
-.carousel-track {
-  display: flex;
-  justify-content: space-between;
-  transition: transform 0.5s ease;
-}
-.carousel-slide {
-  min-width: 100%;
-  min-height: 70%;
-  box-sizing: border-box;
-  padding: 20px;
-  text-align: left;
-}
-
-.carousel-text {
-  color: #242424;
-
-}
-.carousel-btn {
-  position: absolute;
-  height: 90px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #fff;
-  color: #242424;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  z-index: 1;
-}
-.carousel-btn.prev { left: 5px; }
-.carousel-btn.next { right: 5px; }

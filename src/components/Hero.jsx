@@ -12,7 +12,7 @@ const Hero = () => {
       <div className="block w-50 h-50 lg:w-90 lg:h-120 lg:rounded-2xl rounded-full overflow-hidden border-gray-400 border-4">
         <img
           style={{ objectFit: "cover", width: "100%", height: "100%" }}
-          src="src/assets/PIC-profile.jpg"
+          src="./PIC-profile.jpg"
           alt=""
         />
       </div>

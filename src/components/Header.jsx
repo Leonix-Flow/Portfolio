@@ -2,6 +2,7 @@ import React from "react";
 import Button from "./Button";
 import { useLocation } from "react-router-dom";
 import { navLinks } from "../constants";
+import { Menu } from "lucide-react";
 
 const Header = () => {
     const location = useLocation();
@@ -26,9 +27,11 @@ const Header = () => {
           ))}
         </nav>
       </div>
-      <Button link={"google.com"} className="hidden w-32 lg:block">
-        Hire-Me
+      <Button link={"google.com"} className="w-auto lg:block">
+        <span className="lg:block hidden w-32">Hire-Me</span>
+        <Menu className="lg:hidden" />
       </Button>
+
     </div>
   );
 };

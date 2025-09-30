@@ -25,7 +25,7 @@ export default function About() {
             </ul>
           </div>
 
-          <div style={{ height: 'auto', position: 'relative' }}> <Carousel baseWidth={300} autoplay={true} autoplayDelay={3000} pauseOnHover={true} loop={true} round={false} /> </div>
+          <div className='lg:block relative h-auto max-h-[280px] flex justify-center' > <Carousel baseWidth={300} autoplay={true} autoplayDelay={3000} pauseOnHover={true} loop={true} round={false} /> </div>
         </div>
 
       </div>

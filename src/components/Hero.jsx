@@ -1,202 +1,179 @@
-import { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue, useTransform } from "motion/react";
-import { FiCircle, FiCode, FiFileText, FiLayers, FiLayout } from "react-icons/fi";
+import Section from "./Section";
+import Button from "./Button";
+import { 
+  FaEnvelope, FaFacebook, FaGithub, FaInstagram, FaWhatsapp, FaArrowDown 
+} from "react-icons/fa";
+import { useToggle } from "../ToggleContext";
+import TextType from "./Typed";
+import { motion } from "framer-motion";
 
-// Default items
-const DEFAULT_ITEMS = [
-  { id: 1, title: "Text Animations", description: "Cool text animations for your projects.", icon: <FiFileText className="h-4 w-4 text-white" /> },
-  { id: 2, title: "Animations", description: "Smooth animations for your projects.", icon: <FiCircle className="h-4 w-4 text-white" /> },
-  { id: 3, title: "Components", description: "Reusable components for your projects.", icon: <FiLayers className="h-4 w-4 text-white" /> },
-  { id: 4, title: "Backgrounds", description: "Beautiful backgrounds and patterns for your projects.", icon: <FiLayout className="h-4 w-4 text-white" /> },
-  { id: 5, title: "Common UI", description: "Common UI components are coming soon!", icon: <FiCode className="h-4 w-4 text-white" /> },
-];
+// Animation variants
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.2, duration: 0.7, ease: "easeOut" },
+  }),
+};
 
-// Motion configs
-const DRAG_BUFFER = 0;
-const VELOCITY_THRESHOLD = 500;
-const GAP = 16;
-const SPRING_OPTIONS = { type: "spring", stiffness: 300, damping: 30 };
+const Hero = () => {
+  const { isToggled } = useToggle();
 
-export default function Carousel({
-  items = DEFAULT_ITEMS,
-  baseWidth = 300,
-  autoplay = false,
-  autoplayDelay = 3000,
-  pauseOnHover = false,
-  loop = false,
-  round = false,
-}) {
-  const containerPadding = 16;
-  const itemWidth = baseWidth - containerPadding * 2;
-  const trackItemOffset = itemWidth + GAP;
-
-  // Loop mode includes first item at the end
-  const carouselItems = loop ? [...items, items[0]] : items;
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isResetting, setIsResetting] = useState(false);
-
-  const x = useMotionValue(0);
-  const containerRef = useRef(null);
-
-  // --- Pause on hover ---
-  useEffect(() => {
-    if (!pauseOnHover || !containerRef.current) return;
-
-    const container = containerRef.current;
-    const handleMouseEnter = () => setIsHovered(true);
-    const handleMouseLeave = () => setIsHovered(false);
-
-    container.addEventListener("mouseenter", handleMouseEnter);
-    container.addEventListener("mouseleave", handleMouseLeave);
-    return () => {
-      container.removeEventListener("mouseenter", handleMouseEnter);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, [pauseOnHover]);
-
-  // --- Autoplay ---
-  useEffect(() => {
-    if (!autoplay || (pauseOnHover && isHovered)) return;
-
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev === items.length - 1 && loop) return prev + 1;
-        if (prev === carouselItems.length - 1) return loop ? 0 : prev;
-        return prev + 1;
-      });
-    }, autoplayDelay);
-
-    return () => clearInterval(timer);
-  }, [autoplay, autoplayDelay, isHovered, loop, items.length, carouselItems.length, pauseOnHover]);
-
-  // --- Transition handling ---
-  const effectiveTransition = isResetting ? { duration: 0 } : SPRING_OPTIONS;
-
-  const handleAnimationComplete = () => {
-    if (loop && currentIndex === carouselItems.length - 1) {
-      setIsResetting(true);
-      x.set(0);
-      setCurrentIndex(0);
-      setTimeout(() => setIsResetting(false), 50);
-    }
+  const themeClasses = {
+    bg: isToggled ? "hero-light-theme" : "hero-dark-theme",
+    textPrimary: isToggled ? "text-gray-800" : "text-gray-200",
+    textSecondary: isToggled ? "text-gray-700" : "text-gray-300",
+    textMuted: isToggled ? "text-gray-700" : "text-gray-400",
+    border: isToggled ? "border-gray-400" : "border-gray-600",
+    underline: isToggled ? "decoration-gray-800" : "decoration-gray-200",
+    arrow: isToggled ? "text-gray-800 hover:text-gray-600" : "text-gray-200 hover:text-gray-400",
   };
 
-  // --- Drag handling ---
-  const handleDragEnd = (_, info) => {
-    const { offset, velocity } = info;
+  const socialLinks = [
+    { icon: FaGithub, href: "https://github.com/yourusername", color: isToggled ? "hover:text-gray-900" : "hover:text-gray-400", label: "GitHub" },
+    { icon: FaFacebook, href: "https://facebook.com/yourprofile", color: "hover:text-blue-600", label: "Facebook" },
+    { icon: FaInstagram, href: "https://instagram.com/yourprofile", color: "hover:text-pink-600", label: "Instagram" },
+    { icon: FaWhatsapp, href: "https://wa.me/yourphonenumber", color: "hover:text-green-600", label: "WhatsApp" },
+    { icon: FaEnvelope, href: "mailto:your.email@example.com", color: "hover:text-red-600", label: "Email" },
+  ];
 
-    if (offset.x < -DRAG_BUFFER || velocity.x < -VELOCITY_THRESHOLD) {
-      setCurrentIndex((prev) =>
-        loop && prev === items.length - 1 ? prev + 1 : Math.min(prev + 1, carouselItems.length - 1)
-      );
-    } else if (offset.x > DRAG_BUFFER || velocity.x > VELOCITY_THRESHOLD) {
-      setCurrentIndex((prev) =>
-        loop && prev === 0 ? items.length - 1 : Math.max(prev - 1, 0)
-      );
-    }
-  };
-
-  // --- Drag constraints (non-loop only) ---
-  const dragProps = loop
-    ? {}
-    : {
-        dragConstraints: { left: -trackItemOffset * (carouselItems.length - 1), right: 0 },
-      };
+  const MotionDiv = motion.div;
+  const MotionP = motion.p;
+  const MotionA = motion.a;
+  const MotionH1 = motion.h1;
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative overflow-hidden p-4 ${
-        round ? "rounded-full border border-white" : "rounded-2xl border border-[#222]"
-      }`}
-      style={{ width: `${baseWidth}px`, ...(round && { height: `${baseWidth}px` }) }}
+    <Section
+      id="home"
+      className={`${themeClasses.bg} flex-col lg:flex-row flex w-full min-h-screen bg-cover bg-center bg-no-repeat justify-center items-center gap-4 lg:gap-6 px-4 py-20`}
     >
-      {/* Track */}
+      {/* Profile Image */}
       <motion.div
-        className="flex"
-        drag="x"
-        {...dragProps}
-        style={{
-          width: itemWidth,
-          gap: `${GAP}px`,
-          perspective: 1000,
-          perspectiveOrigin: `${currentIndex * trackItemOffset + itemWidth / 2}px 50%`,
-          x,
-        }}
-        onDragEnd={handleDragEnd}
-        animate={{ x: -(currentIndex * trackItemOffset) }}
-        transition={effectiveTransition}
-        onAnimationComplete={handleAnimationComplete}
+        className={`w-64 h-64 lg:w-96 lg:h-[460px] rounded-full lg:rounded-2xl overflow-hidden ${themeClasses.border} border-4 shadow-2xl flex-shrink-0 transition-transform duration-300 hover:scale-105`}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.6 }}
+        variants={fadeUp}
+        custom={0}
       >
-        {carouselItems.map((item, index) => {
-          const rotateY = useTransform(
-            x,
-            [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset],
-            [90, 0, -90],
-            { clamp: false }
-          );
-
-          return (
-            <motion.div
-              key={index}
-              className={`relative shrink-0 flex flex-col ${
-                round
-                  ? "items-center justify-center text-center bg-[#060010] border-0"
-                  : "items-start justify-between bg-[#222] border border-[#222] rounded-xl"
-              } overflow-hidden cursor-grab active:cursor-grabbing`}
-              style={{
-                width: itemWidth,
-                height: round ? itemWidth : "100%",
-                rotateY,
-                ...(round && { borderRadius: "50%" }),
-              }}
-              transition={effectiveTransition}
-            >
-              <div className={round ? "p-0 m-0" : "mb-4 p-5"}>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#060010]">
-                  {item.icon}
-                </span>
-              </div>
-              <div className="p-5">
-                <h3 className="mb-1 font-black text-lg text-white">{item.title}</h3>
-                <p className="text-sm text-white">{item.description}</p>
-              </div>
-            </motion.div>
-          );
-        })}
+        <img
+          src="./PIC-profile.jpg"
+          alt="Toheeb Adeleke - Software Developer"
+          className="w-full h-full object-cover"
+        />
       </motion.div>
 
-      {/* Dots */}
-      <div
-        className={`flex w-full justify-center ${
-          round ? "absolute z-20 bottom-12 left-1/2 -translate-x-1/2" : ""
-        }`}
+      {/* Text Content */}
+      <MotionDiv
+        className="lg:space-y-6 space-y-2 max-w-2xl"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        variants={fadeUp}
+        custom={1}
       >
-        <div className="mt-4 flex w-[150px] justify-between px-8">
-          {items.map((_, index) => {
-            const isActive = currentIndex % items.length === index;
-            return (
-              <motion.div
-                key={index}
-                className={`h-2 w-2 rounded-full cursor-pointer transition-colors duration-150 ${
-                  isActive
-                    ? round
-                      ? "bg-white"
-                      : "bg-[#333]"
-                    : round
-                    ? "bg-[#555]"
-                    : "bg-[rgba(51,51,51,0.4)]"
-                }`}
-                animate={{ scale: isActive ? 1.2 : 1 }}
-                onClick={() => setCurrentIndex(index)}
-                transition={{ duration: 0.15 }}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </div>
+        {/* Headings */}
+        <MotionDiv className="space-y-2" variants={fadeUp} custom={2}>
+          <MotionH1
+            className={`text-3xl lg:text-5xl text-center lg:text-left font-bold ${themeClasses.textPrimary}`}
+            variants={fadeUp}
+            custom={3}
+          >
+            Hi, I am{" "}
+            <span className={`underline decoration-4 ${themeClasses.underline}`}>
+              Toheeb Adeleke
+            </span>
+          </MotionH1>
+
+          <motion.div
+            className={`text-xl lg:text-3xl text-center lg:text-left font-semibold min-h-[2.5rem] lg:min-h-[3rem] ${themeClasses.textPrimary}`}
+            variants={fadeUp}
+            custom={4}
+          >
+            I am a{" "}
+            <TextType
+              text={[
+                "Web Developer",
+                "Software Engineer",
+                "UI/UX Designer",
+                "Freelancer",
+                "Tech Enthusiast",
+                "Gamer",
+              ]}
+              typingSpeed={70}
+              pauseDuration={1700}
+              showCursor
+              cursorCharacter="|"
+              textColors={["gray"]}
+            />
+          </motion.div>
+        </MotionDiv>
+
+        {/* About */}
+        <MotionP
+          className={`text-base lg:text-lg text-justify lg:text-left leading-relaxed ${themeClasses.textSecondary}`}
+          variants={fadeUp}
+          custom={5}
+        >
+          A passionate software developer with expertise in building scalable,
+          efficient applications across the full stack. I thrive on solving
+          complex problems through clean, maintainable code and thoughtful
+          system architecture. Beyond development, I'm constantly exploring
+          emerging technologies, contributing to open-source projects, and
+          collaborating with teams to deliver robust solutions.
+        </MotionP>
+
+        {/* Buttons + Socials */}
+        <MotionDiv
+          className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 sm:gap-6 pt-4"
+          variants={fadeUp}
+          custom={6}
+        >
+          <Button variant="primary" active={isToggled ? "" : "active"}>
+            View Resume
+          </Button>
+
+          <div className="flex gap-4 items-center">
+            {socialLinks.map(({ icon: Icon, href, color, label }, i) => (
+              <MotionA
+                key={label}
+                href={href}
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-3xl ${themeClasses.textPrimary} ${color} transition-all duration-300 transform hover:scale-110`}
+                variants={fadeUp}
+                custom={7 + i}
+              >
+                <Icon />
+              </MotionA>
+            ))}
+          </div>
+        </MotionDiv>
+
+        {/* CTA */}
+        <MotionP
+          className={`text-sm lg:text-base ${themeClasses.textMuted} text-center lg:text-left font-medium pt-2`}
+          variants={fadeUp}
+          custom={8 + socialLinks.length}
+        >
+          Let's connect and discuss your project!
+        </MotionP>
+      </MotionDiv>
+
+      {/* Scroll Arrow (mobile only) */}
+      <motion.a
+        href="#about"
+        className={`mt-6 text-4xl ${themeClasses.arrow} animate-bounce lg:hidden transition-colors`}
+        aria-label="Scroll to About section"
+        variants={fadeUp}
+        custom={9 + socialLinks.length}
+      >
+        <FaArrowDown />
+      </motion.a>
+    </Section>
   );
-}
+};
+
+export default Hero;

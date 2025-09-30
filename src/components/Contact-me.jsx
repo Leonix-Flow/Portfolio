@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 import { useToggle } from '../ToggleContext';
 import Section from './Section';
 import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, CheckCircle, AlertCircle } from 'lucide-react';
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.2, duration: 0.7, ease: "easeOut" }
+  })
+};
 
 const ContactMe = () => {
   const { isToggled } = useToggle();
@@ -122,19 +132,47 @@ const ContactMe = () => {
     >
       <div className="max-w-6xl w-full mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className={`text-4xl lg:text-5xl font-bold mb-4 ${isToggled ? "bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent" : "bg-gradient-to-r from-gray-200 to-gray-400 bg-clip-text text-transparent"}`}>
+        <motion.div
+          className="text-center mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={fadeUp}
+          custom={0}
+        >
+          <motion.h2
+            className={`text-4xl lg:text-5xl font-bold mb-4 ${isToggled ? "bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent" : "bg-gradient-to-r from-gray-200 to-gray-400 bg-clip-text text-transparent"}`}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={fadeUp}
+            custom={1}
+          >
             Get In Touch
-          </h2>
-          <p className={`text-lg max-w-2xl mx-auto ${isToggled ? "text-gray-700" : "text-gray-300"}`}>
+          </motion.h2>
+          <motion.p
+            className={`text-lg max-w-2xl mx-auto ${isToggled ? "text-gray-700" : "text-gray-300"}`}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={fadeUp}
+            custom={2}
+          >
             Have a project in mind or want to collaborate? I'd love to hear from you. 
             Send me a message and I'll get back to you as soon as possible.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Contact Form */}
-          <div className={`lg:col-span-2 ${isToggled ? "bg-white/80" : "bg-gray-900/80"} backdrop-blur-sm p-6 lg:p-8 rounded-2xl shadow-xl ${isToggled ? "border border-gray-200" : "border border-gray-700"}`}>
+          <motion.div
+            className={`lg:col-span-2 ${isToggled ? "bg-white/80" : "bg-gray-900/80"} backdrop-blur-sm p-6 lg:p-8 rounded-2xl shadow-xl ${isToggled ? "border border-gray-200" : "border border-gray-700"}`}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={fadeUp}
+            custom={3}
+          >
             <div className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -236,18 +274,33 @@ const ContactMe = () => {
                 )}
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Info & Social */}
           <div className="space-y-6">
             {/* Contact Information */}
-            <div className={`${isToggled ? "bg-white/80 border-gray-200" : "bg-gray-900 border-gray-700"} backdrop-blur-sm p-6 rounded-2xl shadow-xl border`}>
+            <motion.div
+              className={`${isToggled ? "bg-white/80 border-gray-200" : "bg-gray-900 border-gray-700"} backdrop-blur-sm p-6 rounded-2xl shadow-xl border`}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={fadeUp}
+              custom={4}
+            >
               <h3 className={`text-xl font-bold ${isToggled ? "text-gray-800" : "text-gray-200"} mb-4`}>Contact Information</h3>
               <div className="space-y-4">
                 {contactInfo.map((info, index) => {
                   const Icon = info.icon;
                   return (
-                    <div key={index} className="flex items-start gap-3">
+                    <motion.div
+                      key={index}
+                      className="flex items-start gap-3"
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: 0.5 }}
+                      variants={fadeUp}
+                      custom={5 + index}
+                    >
                       <div className={`w-10 h-10 ${isToggled ? "bg-gray-100" : "bg-gray-800"} rounded-lg flex items-center justify-center flex-shrink-0`}>
                         <Icon size={20} className={`${isToggled ? "text-gray-700" : "text-gray-300"}`} />
                       </div>
@@ -264,39 +317,58 @@ const ContactMe = () => {
                           <p className={`text-sm ${isToggled ? "text-gray-600" : "text-gray-400"}`}>{info.value}</p>
                         )}
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
-            </div>
+            </motion.div>
 
             {/* Social Links */}
-            <div className={`${isToggled ? "bg-white/80 border-gray-200" : "bg-gray-900 border-gray-700"} backdrop-blur-sm p-6 rounded-2xl shadow-xl border`}>
+            <motion.div
+              className={`${isToggled ? "bg-white/80 border-gray-200" : "bg-gray-900 border-gray-700"} backdrop-blur-sm p-6 rounded-2xl shadow-xl border`}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={fadeUp}
+              custom={6 + contactInfo.length}
+            >
               <h3 className={`text-xl font-bold ${isToggled ? "text-gray-800" : "text-gray-200"} mb-4`}>Connect With Me</h3>
               <div className="flex gap-3">
                 {socialLinks.map((social, index) => {
                   const Icon = social.icon;
                   return (
-                    <a
+                    <motion.a
                       key={index}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={social.label}
                       className={`w-12 h-12 ${isToggled ? "bg-gray-100 text-gray-700" : "bg-gray-800 text-gray-300"} rounded-lg flex items-center justify-center ${social.color} transition-all duration-300 hover:scale-110 hover:shadow-md`}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: 0.5 }}
+                      variants={fadeUp}
+                      custom={7 + contactInfo.length + index}
                     >
                       <Icon size={22} />
-                    </a>
+                    </motion.a>
                   );
                 })}
               </div>
               <p className={`text-sm ${isToggled ? "text-gray-600" : "text-gray-400"} mt-4`}>
                 Follow me on social media for updates and insights.
               </p>
-            </div>
+            </motion.div>
 
             {/* Availability */}
-            <div className={`${isToggled ? "bg-white/80 border-gray-200" : "bg-gray-900 border-gray-700"} backdrop-blur-sm p-6 rounded-2xl shadow-xl border`}>
+            <motion.div
+              className={`${isToggled ? "bg-white/80 border-gray-200" : "bg-gray-900 border-gray-700"} backdrop-blur-sm p-6 rounded-2xl shadow-xl border`}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={fadeUp}
+              custom={8 + contactInfo.length + socialLinks.length}
+            >
               <h3 className={`text-xl font-bold mb-2 ${isToggled ? "text-gray-800" : "text-gray-200"}`}>Availability</h3>
               <p className={`${isToggled ? "text-gray-600" : "text-gray-400"} text-sm`}>
                 Currently available for freelance projects and collaborations.
@@ -305,7 +377,7 @@ const ContactMe = () => {
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                 <span className={`text-sm font-medium ${isToggled ? "text-gray-800" : "text-gray-200"}`}>Open to opportunities</span>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

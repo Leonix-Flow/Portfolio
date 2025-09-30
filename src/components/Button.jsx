@@ -2,29 +2,57 @@ import React from "react";
 
 const Button = ({
   onClick,
-  className,
+  className = "",
   variant = "primary",
   children,
   link,
+  active,
+  disabled = false,
+  type = "button",
 }) => {
   const variants = {
-    primary: " bg-[rgba(255,255,255,0.2)] backdrop-blur-1xl hover:bg-gray-200",
+    primary: "bg-[rgba(255,255,255,0.2)] backdrop-blur-sm hover:bg-gray-200 text-gray-900",
     secondary: "bg-gray-500 text-white hover:bg-gray-600",
     success: "bg-green-500 text-white hover:bg-green-600",
     danger: "bg-red-500 text-white hover:bg-red-600",
   };
 
-  return (
-    <div>
-      <a href={link}>
-        <button
-          className={`transition-colors duration-700 font-bold py-1 px-2 rounded-full ${variants[variant]} ${className}`}
-          onClick={onClick}
-        >
+  if (active) {
+    variants.primary = "bg-gray-200 text-gray-900 hover:bg-gray-400";
+    variants.secondary = "bg-gray-600 text-white hover:bg-gray-700";
+    variants.success = "bg-green-600 text-white hover:bg-green-700";
+    variants.danger = "bg-red-600 text-white hover:bg-red-700";
+  }
+  
+  const baseClasses = `transition-colors duration-700 font-bold py-1 px-2 rounded-full ${variants[variant]} ${className}`;
+  
+  const disabledClasses = disabled ? "opacity-50 cursor-not-allowed" : "";
+
+  // If link is provided, render as anchor tag
+  if (link) {
+    return (
+      <a 
+        href={link}
+        className={`inline-block ${disabledClasses}`}
+        onClick={disabled ? (e) => e.preventDefault() : onClick}
+      >
+        <span className={baseClasses}>
           {children}
-        </button>
+        </span>
       </a>
-    </div>
+    );
+  }
+
+  // Otherwise render as button
+  return (
+    <button
+      type={type}
+      className={`${baseClasses} ${disabledClasses}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
+    </button>
   );
 };
 

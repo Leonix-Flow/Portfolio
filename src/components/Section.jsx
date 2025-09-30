@@ -1,13 +1,22 @@
+import React from 'react';
+
 const Section = ({
   id,
-  className,
+  className = "",
   children,
-
+  as = "section",
+  ...props
 }) => {
+  const Component = as;
+  
   return (
-    <div className={` ${className}`} id={id}>
+    <Component 
+      id={id} 
+      className={`relative ${className}`}
+      {...props}
+    >
       {children}
-    </div>
+    </Component>
   );
 };
 

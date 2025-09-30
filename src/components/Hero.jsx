@@ -1,59 +1,112 @@
 import Section from "./Section";
 import Button from "./Button";
-import { FaEnvelope, FaFacebook, FaGithub, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaEnvelope, FaFacebook, FaGithub, FaInstagram, FaWhatsapp, FaArrowDown } from "react-icons/fa";
+import { useToggle } from "../ToggleContext";
 import TextType from "./Typed";
 
 const Hero = () => {
+  const { isToggled } = useToggle();
+  const socialLinks = [
+    { 
+      icon: FaGithub, 
+      href: "https://github.com/yourusername", 
+      color: isToggled ? "hover:text-gray-900" : "hover:text-gray-400", 
+      label: "GitHub" 
+    },
+    { 
+      icon: FaFacebook, 
+      href: "https://facebook.com/yourprofile", 
+      color: "hover:text-blue-600", 
+      label: "Facebook" 
+    },
+    { 
+      icon: FaInstagram, 
+      href: "https://instagram.com/yourprofile", 
+      color: "hover:text-pink-600", 
+      label: "Instagram" 
+    },
+    { 
+      icon: FaWhatsapp, 
+      href: "https://wa.me/yourphonenumber", 
+      color: "hover:text-green-600", 
+      label: "WhatsApp" 
+    },
+    { 
+      icon: FaEnvelope, 
+      href: "mailto:your.email@example.com", 
+      color: "hover:text-red-600", 
+      label: "Email" 
+    }
+  ];
+
   return (
     <Section
-      className="bg-gradient-to-b from-[#e9e9e9] to-[#6e6e6e] flex-col lg:flex-row flex w-full h-auto bg-cover bg-center bg-no-repeat justify-center items-center pt-15 lg:py-20"
+      className={`${isToggled ? "hero-light-theme" : "hero-dark-theme"} flex-col lg:flex-row flex w-full min-h-screen bg-cover bg-center bg-no-repeat justify-center items-center gap-4 lg:gap-6 px-4 py-20`}
       id="home"
     >
-      <div className="block w-50 h-50 lg:w-90 lg:h-120 lg:rounded-2xl rounded-full overflow-hidden border-gray-400 border-4">
+      <div className={`w-64 h-64 lg:w-96 lg:h-[460px] lg:rounded-2xl rounded-full overflow-hidden ${isToggled ? "border-gray-400" : "border-gray-600"} border-4 shadow-2xl flex-shrink-0 transition-transform duration-300 hover:scale-105`}>
         <img
-          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+          className="w-full h-full object-cover"
           src="./PIC-profile.jpg"
-          alt=""
+          alt="Toheeb Adeleke - Software Developer"
         />
       </div>
-      <div className="text-black px-10 space-y-2 max-w-2xl">
-        <span className="text-[1.5rem] lg:text-[2.5rem] text-center lg:text-left block font-bold">
-          Hi, i am <span className="underline">Toheeb Adeleke</span>
-        </span>
-        <span className="text-[1.2rem] lg:text-[2rem] text-center lg:text-left block font-semibold">
-          I am a <TextType text={["Web developer", "Software engineer", "UI/UX designer", "Freelancer", "Tech enthusiast", "Gamer"]}
-          typingSpeed={70}
-          pauseDuration={1700}
-          showCursor={true}
-          cursorCharacter="|"
-          textColors={['gray']}
-        />
-        </span>
-        <div className="w-auto ">
-          <span className="text-lg block text-justify lg:text-left text-clip">
-            A passionate frontend developer with a knack for creating beautiful
-            and functional web applications. I love bringing designs to life,
-            ensuring they are as user-friendly as they are visually stunning.
-            Beyond coding, I enjoy exploring new web technologies, contributing to
-            open-source projects, and collaborating with like-minded developers.
-            My goal? To craft web experiences that not only work seamlessly but
-            also leave a lasting impression!
-          </span>
+
+      <div className="lg:space-y-6 space-y-2 max-w-2xl">
+        <div className="space-y-2">
+          <h1 className={`text-3xl lg:text-5xl text-center lg:text-left font-bold ${isToggled ? "text-gray-800" : "text-gray-200"}`}>
+            Hi, I am <span className={`underline decoration-4 ${isToggled ? "decoration-gray-800" : "decoration-gray-200"}`}>Toheeb Adeleke</span>
+          </h1>
+          <div className={`text-xl lg:text-3xl text-center lg:text-left font-semibold min-h-[2.5rem] lg:min-h-[3rem] ${isToggled ? "text-gray-800" : "text-gray-200"}`}>
+            I am a <TextType 
+              text={["Web Developer", "Software Engineer", "UI/UX Designer", "Freelancer", "Tech Enthusiast", "Gamer"]}
+              typingSpeed={70}
+              pauseDuration={1700}
+              showCursor={true}
+              cursorCharacter="|"
+              textColors={['gray']}
+            />
+          </div>
         </div>
 
-        <div className="flex justify-between w-auto max-w-sm items-center">
-          <Button variant="primary">View Resume</Button>
-            <a href="" className="text-3xl text-black"><FaGithub /></a>
-            <a href="" className="text-3xl text-blue-500"><FaFacebook /></a>
-            <a href="" className="text-3xl text-white"><FaInstagram/></a>
-            <a href="" className="text-3xl text-green-500"><FaWhatsapp/></a>
-            <a href="" className="text-3xl text-yellow-300"><FaEnvelope/></a>
+        <p className={`text-base lg:text-lg text-justify lg:text-left leading-relaxed ${isToggled ? "text-gray-700" : "text-gray-300"}`}>
+          A passionate software developer with expertise in building scalable, efficient applications across the full stack. I thrive on solving complex problems through clean, maintainable code and thoughtful system architecture. Beyond development, I'm constantly exploring emerging technologies, contributing to open-source projects, and collaborating with teams to deliver robust solutions. My goal? To create software that not only meets requirements but exceeds expectations in performance, reliability, and user experience!
+        </p>
+
+        <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 sm:gap-6 pt-4">
+          <Button variant="primary" active={isToggled ? "" : "active"}>View Resume</Button>
+
+          <div className="flex gap-4 items-center">
+            {socialLinks.map((social, index) => {
+              const Icon = social.icon;
+              return (
+                <a 
+                  key={index}
+                  href={social.href} 
+                  className={`text-3xl ${isToggled ? "text-gray-800" : "text-gray-200"} ${social.color} transition-all duration-300 transform hover:scale-110`}
+                  aria-label={social.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icon />
+                </a>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="text-sm text-gray-800 text-center lg:text-left">
-          <span>Let's connect and discuss your project!</span>
-        </div>
+        <p className={`text-sm lg:text-base ${isToggled ? "text-gray-700" : "text-gray-400"} text-center lg:text-left font-medium pt-2`}>
+          Let's connect and discuss your project!
+        </p>
       </div>
+
+      <a 
+        href="#about" 
+        className={`mt-6 text-4xl ${isToggled ? "text-gray-800 hover:text-gray-600" : "text-gray-200 hover:text-gray-400"} animate-bounce lg:hidden transition-colors`} 
+        aria-label="Scroll to About section"
+      >
+        <FaArrowDown />
+      </a>
     </Section>
   );
 };

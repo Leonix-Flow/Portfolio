@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="rounded-full mt-2 px-4 h-10 w-full flex items-center justify-between bg-[rgba(255,255,255,0.2)] backdrop-blur-sm text-gray-900 shadow-md lg:px-20 lg:py-4 lg:h-14">
+      <div className={`rounded-full mt-2 px-4 h-10 w-full flex items-center justify-between bg-[rgba(255,255,255,0.2)] backdrop-blur-sm shadow-md lg:px-20 lg:py-4 lg:h-14`}>
         <a href="/" className="text-[1.3rem] font-bold font-serif">
           Leonix
         </a>
@@ -36,7 +36,7 @@ const Header = () => {
 
         {/* Desktop Hire Button & Mobile Menu Toggle */}
         <div className="flex items-center gap-2">
-          <Button link={"#Contact"} className="w-auto hidden lg:block">
+          <Button link={"#Contact"} vari className="w-auto hidden lg:block">
             <span className="w-32">Contact-Me</span>
           </Button>
           
@@ -59,16 +59,14 @@ const Header = () => {
                 key={link.id}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`font-bold text-[1rem] hover:text-gray-400 transition-colors text-black duration-300 py-2 ${
+                className={`font-bold text-[1rem] hover:text-gray-400 transition-colors duration-300 py-2 ${
                   location.hash === link.href ? "text-gray-400" : ""
                 }`}
               >
                 {link.label}
               </a>
             ))}
-            <Button link={"#Contact"} className="w-full mt-2">
-              <span>Contact-Me</span>
-            </Button>
+            <a href={"#Contact"} className={`font-bold text-[1rem] hover:text-gray-400 transition-colors duration-300 py-2 ${location.hash === "#Contact" ? "text-gray-400" : ""}`} onClick={() => setMobileMenuOpen(false)}>Contact-Me</a>
           </nav>
         </div>
       )}

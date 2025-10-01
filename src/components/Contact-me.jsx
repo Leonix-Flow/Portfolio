@@ -54,14 +54,14 @@ const ContactMe = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "your.email@example.com",
-      href: "mailto:your.email@example.com",
+      value: "olusojleo@gmail.com",
+      href: "mailto:olusojleo@gmail.com",
     },
     {
       icon: Phone,
       label: "Phone",
-      value: "+234 123 456 7890",
-      href: "tel:+2341234567890",
+      value: "+234 9074155361",
+      href: "tel:+2349074155361",
     },
     {
       icon: MapPin,

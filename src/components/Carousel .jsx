@@ -1,201 +1,153 @@
-import { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue, useTransform } from "motion/react";
+import React, { useState, useEffect } from "react";
 import { FiCircle, FiCode, FiFileText, FiLayers, FiLayout } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import { useToggle } from "../ToggleContext";
 
 // Default items
 const DEFAULT_ITEMS = [
-  { id: 1, title: "Text Animations", description: "Cool text animations for your projects.", icon: <FiFileText className="h-4 w-4 text-white" /> },
-  { id: 2, title: "Animations", description: "Smooth animations for your projects.", icon: <FiCircle className="h-4 w-4 text-white" /> },
-  { id: 3, title: "Components", description: "Reusable components for your projects.", icon: <FiLayers className="h-4 w-4 text-white" /> },
-  { id: 4, title: "Backgrounds", description: "Beautiful backgrounds and patterns for your projects.", icon: <FiLayout className="h-4 w-4 text-white" /> },
-  { id: 5, title: "Common UI", description: "Common UI components are coming soon!", icon: <FiCode className="h-4 w-4 text-white" /> },
+  { id: 1, title: "Web Development", description: "Building responsive and performant web applications.", icon: <FiFileText /> },
+  { id: 2, title: "Mobile Development", description: "Creating native and cross-platform mobile applications.", icon: <FiCircle /> },
+  { id: 3, title: "UI/UX Design", description: "Designing intuitive and beautiful interfaces.", icon: <FiLayers /> },
+  { id: 4, title: "Backend Development", description: "Developing robust server-side solutions.", icon: <FiLayout /> },
+  { id: 5, title: "Performance Optimization", description: "Enhancing application speed and efficiency.", icon: <FiCode /> },
 ];
 
-// Motion configs
-const DRAG_BUFFER = 0;
-const VELOCITY_THRESHOLD = 500;
-const GAP = 16;
-const SPRING_OPTIONS = { type: "spring", stiffness: 300, damping: 30 };
+// Animation variants
+const slideVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? 200 : -200,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.4 },
+  },
+  exit: (direction) => ({
+    x: direction < 0 ? 200 : -200,
+    opacity: 0,
+    transition: { duration: 0.4 },
+  }),
+};
+
+const swipeThreshold = 100; // Minimum drag+velocity to count as swipe
 
 export default function Carousel({
   items = DEFAULT_ITEMS,
-  baseWidth = 300,
-  autoplay = false,
-  autoplayDelay = 3000,
-  pauseOnHover = false,
-  loop = false,
-  round = false,
+  autoPlay = true,
+  autoPlayDelay = 4000,
 }) {
-  const containerPadding = 16;
-  const itemWidth = baseWidth - containerPadding * 2;
-  const trackItemOffset = itemWidth + GAP;
+  const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const { isToggled } = useToggle();
 
-  // Loop mode includes first item at the end
-  const carouselItems = loop ? [...items, items[0]] : items;
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isResetting, setIsResetting] = useState(false);
-
-  const x = useMotionValue(0);
-  const containerRef = useRef(null);
-
-  // --- Pause on hover ---
+  // Autoplay
   useEffect(() => {
-    if (!pauseOnHover || !containerRef.current) return;
+    if (!autoPlay) return;
 
-    const container = containerRef.current;
-    const handleMouseEnter = () => setIsHovered(true);
-    const handleMouseLeave = () => setIsHovered(false);
+    const interval = setInterval(() => {
+      paginate(1);
+    }, autoPlayDelay);
 
-    container.addEventListener("mouseenter", handleMouseEnter);
-    container.addEventListener("mouseleave", handleMouseLeave);
-    return () => {
-      container.removeEventListener("mouseenter", handleMouseEnter);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, [pauseOnHover]);
+    return () => clearInterval(interval);
+  }, [index, autoPlay, autoPlayDelay]);
 
-  // --- Autoplay ---
-  useEffect(() => {
-    if (!autoplay || (pauseOnHover && isHovered)) return;
-
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev === items.length - 1 && loop) return prev + 1;
-        if (prev === carouselItems.length - 1) return loop ? 0 : prev;
-        return prev + 1;
-      });
-    }, autoplayDelay);
-
-    return () => clearInterval(timer);
-  }, [autoplay, autoplayDelay, isHovered, loop, items.length, carouselItems.length, pauseOnHover]);
-
-  // --- Transition handling ---
-  const effectiveTransition = isResetting ? { duration: 0 } : SPRING_OPTIONS;
-
-  const handleAnimationComplete = () => {
-    if (loop && currentIndex === carouselItems.length - 1) {
-      setIsResetting(true);
-      x.set(0);
-      setCurrentIndex(0);
-      setTimeout(() => setIsResetting(false), 50);
-    }
+  // Slide navigation
+  const paginate = (newDirection) => {
+    setDirection(newDirection);
+    setIndex((prev) => (prev + newDirection + items.length) % items.length);
   };
 
-  // --- Drag handling ---
-  const handleDragEnd = (_, info) => {
-    const { offset, velocity } = info;
-
-    if (offset.x < -DRAG_BUFFER || velocity.x < -VELOCITY_THRESHOLD) {
-      setCurrentIndex((prev) =>
-        loop && prev === items.length - 1 ? prev + 1 : Math.min(prev + 1, carouselItems.length - 1)
-      );
-    } else if (offset.x > DRAG_BUFFER || velocity.x > VELOCITY_THRESHOLD) {
-      setCurrentIndex((prev) =>
-        loop && prev === 0 ? items.length - 1 : Math.max(prev - 1, 0)
-      );
-    }
-  };
-
-  // --- Drag constraints (non-loop only) ---
-  const dragProps = loop
-    ? {}
-    : {
-        dragConstraints: { left: -trackItemOffset * (carouselItems.length - 1), right: 0 },
-      };
+  const currentItem = items[index];
 
   return (
     <div
-      ref={containerRef}
-      className={`relative overflow-hidden p-4 ${
-        round ? "rounded-full border border-white" : "rounded-2xl border border-[#222]"
+      className={`w-full max-w-md mx-auto p-4 rounded-xl border overflow-hidden ${
+        isToggled ? "bg-white border-gray-200" : "bg-gray-900 border-gray-700"
       }`}
-      style={{ width: `${baseWidth}px`, ...(round && { height: `${baseWidth}px` }) }}
     >
-      {/* Track */}
-      <motion.div
-        className="flex"
-        drag="x"
-        {...dragProps}
-        style={{
-          width: itemWidth,
-          gap: `${GAP}px`,
-          perspective: 1000,
-          perspectiveOrigin: `${currentIndex * trackItemOffset + itemWidth / 2}px 50%`,
-          x,
-        }}
-        onDragEnd={handleDragEnd}
-        animate={{ x: -(currentIndex * trackItemOffset) }}
-        transition={effectiveTransition}
-        onAnimationComplete={handleAnimationComplete}
-      >
-        {carouselItems.map((item, index) => {
-          const rotateY = useTransform(
-            x,
-            [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset],
-            [90, 0, -90],
-            { clamp: false }
-          );
+      <div className="relative w-full h-[220px] sm:h-[200px] flex items-center justify-center">
+        <AnimatePresence custom={direction} initial={false}>
+          <motion.div
+            key={currentItem.id}
+            className="absolute w-full"
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.3}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipePower = Math.abs(offset.x) * velocity.x;
 
-          return (
-            <motion.div
-              key={index}
-              className={`relative shrink-0 flex flex-col ${
-                round
-                  ? "items-center justify-center text-center bg-[#060010] border-0"
-                  : "items-start justify-between bg-[#222] border border-[#222] rounded-xl"
-              } overflow-hidden cursor-grab active:cursor-grabbing`}
-              style={{
-                width: itemWidth,
-                height: round ? itemWidth : "100%",
-                rotateY,
-                ...(round && { borderRadius: "50%" }),
-              }}
-              transition={effectiveTransition}
-            >
-              <div className={round ? "p-0 m-0" : "mb-4 p-5"}>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#060010]">
-                  {item.icon}
-                </span>
+              if (swipePower < -swipeThreshold) {
+                paginate(1);
+              } else if (swipePower > swipeThreshold) {
+                paginate(-1);
+              }
+            }}
+          >
+            <div className="text-center px-4">
+              <div className="flex justify-center mb-4">
+                <div
+                  className={`p-3 rounded-full ${
+                    isToggled ? "bg-gray-200 text-gray-900" : "bg-gray-800 text-white"
+                  }`}
+                >
+                  {currentItem.icon}
+                </div>
               </div>
-              <div className="p-5">
-                <h3 className="mb-1 font-black text-lg text-white">{item.title}</h3>
-                <p className="text-sm text-white">{item.description}</p>
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
-
-      {/* Dots */}
-      <div
-        className={`flex w-full justify-center ${
-          round ? "absolute z-20 bottom-12 left-1/2 -translate-x-1/2" : ""
-        }`}
-      >
-        <div className="mt-4 flex w-[150px] justify-between px-8">
-          {items.map((_, index) => {
-            const isActive = currentIndex % items.length === index;
-            return (
-              <motion.div
-                key={index}
-                className={`h-2 w-2 rounded-full cursor-pointer transition-colors duration-150 ${
-                  isActive
-                    ? round
-                      ? "bg-white"
-                      : "bg-[#333]"
-                    : round
-                    ? "bg-[#555]"
-                    : "bg-[rgba(51,51,51,0.4)]"
+              <h3
+                className={`text-lg font-semibold ${
+                  isToggled ? "text-gray-900" : "text-white"
                 }`}
-                animate={{ scale: isActive ? 1.2 : 1 }}
-                onClick={() => setCurrentIndex(index)}
-                transition={{ duration: 0.15 }}
-              />
-            );
-          })}
+              >
+                {currentItem.title}
+              </h3>
+              <p
+                className={`text-sm mt-2 ${
+                  isToggled ? "text-gray-600" : "text-gray-400"
+                }`}
+              >
+                {currentItem.description}
+              </p>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Controls */}
+      <div className="flex justify-between items-center mt-6">
+        <button
+          onClick={() => paginate(-1)}
+          className="text-sm text-gray-400 hover:text-white transition"
+        >
+          ← Prev
+        </button>
+        <div className="flex gap-2">
+          {items.map((_, i) => (
+            <div
+              key={i}
+              className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                i === index
+                  ? isToggled
+                    ? "bg-gray-800"
+                    : "bg-white"
+                  : isToggled
+                  ? "bg-gray-300"
+                  : "bg-gray-600"
+              }`}
+            />
+          ))}
         </div>
+        <button
+          onClick={() => paginate(1)}
+          className="text-sm text-gray-400 hover:text-white transition"
+        >
+          Next →
+        </button>
       </div>
     </div>
   );

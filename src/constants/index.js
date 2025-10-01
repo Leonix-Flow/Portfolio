@@ -1,44 +1,64 @@
+import { Code, Palette, Smartphone, Zap, Globe, Database } from 'lucide-react';
+
 export const navLinks = [
     { id: 1, href: "#home", label: "My Home" },
     { id: 2, href: "#about", label: "About Me" },
     { id: 3, href: "#projects", label: "My Projects" },
-    { id: 4, href: "#skills", label: "My Services" },
+    { id: 4, href: "#services", label: "My Services" },
 ];
 
 export const services = [
-    {
-        id: 1,
-        title: "Web Development",
-        description: "Building responsive and functional websites.",
-        img: "src/assets/PIC-profile.jpg"
-    },
-    {
-        id: 2,
-        title: "Mobile App Development",
-        description: "Creating mobile applications for iOS and Android.",
-        img: "src/assets/PIC-profile.jpg"
-    },
-    {
-        id: 3,
-        title: "Game Dev",
-        description: "Designing user-friendly interfaces and experiences.",
-        img: "src/assets/PIC-profile.jpg"
-    },
-    {
-        id: 3,
-        title: "UI/UX Design",
-        description: "Designing user-friendly interfaces and experiences.",
-        img: "src/assets/PIC-profile.jpg"
-    },
-    {
-        id: 4,
-        title: "Writing",
-        description: "Designing user-friendly interfaces and experiences.",
-        img: "src/assets/PIC-profile.jpg"
-    },
+  {
+    id: 1,
+    icon: Code,
+    title: "Web Development",
+    description:
+      "Building responsive and performant web applications with modern technologies and best practices.",
+    features: ["React & Next.js", "Full-Stack Development", "API Integration"],
+  },
+  {
+    id: 2,
+    icon: Smartphone,
+    title: "Mobile Development",
+    description:
+      "Creating native and cross-platform mobile applications that deliver seamless user experiences.",
+    features: ["React Native", "iOS & Android", "Progressive Web Apps"],
+  },
+  {
+    id: 3,
+    icon: Palette,
+    title: "UI/UX Design",
+    description:
+      "Designing intuitive and beautiful interfaces that prioritize user experience and accessibility.",
+    features: ["Figma & Adobe XD", "Responsive Design", "Brand Identity"],
+  },
+  {
+    id: 4,
+    icon: Database,
+    title: "Backend Development",
+    description:
+      "Developing robust server-side solutions with scalable architecture and secure data management.",
+    features: ["Node.js & Express", "Database Design", "RESTful APIs"],
+  },
+  {
+    id: 5,
+    icon: Zap,
+    title: "Performance Optimization",
+    description:
+      "Enhancing application speed and efficiency through code optimization and best practices.",
+    features: ["Code Splitting", "Lazy Loading", "SEO Optimization"],
+  },
+  {
+    id: 6,
+    icon: Globe,
+    title: "Web3 Development",
+    description:
+      "Building decentralized applications and smart contracts for blockchain ecosystems.",
+    features: ["Smart Contracts", "DApp Development", "Blockchain Integration"],
+  },
 ];
 
-export const Projects = [
+export const projects = [
     {
         id: 1,
         title: "Chat Application",
@@ -58,6 +78,7 @@ export const Projects = [
         img: "./PIC-profile.jpg"
     },
 ];
+
 export const skills = [
     { id: 1, name: "JavaScript", level: "Advanced" },
     { id: 2, name: "React", level: "Advanced" },

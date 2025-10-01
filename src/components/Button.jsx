@@ -11,20 +11,21 @@ const Button = ({
   type = "button",
 }) => {
   const variants = {
-    primary: "bg-[rgba(255,255,255,0.2)] backdrop-blur-sm hover:bg-gray-200 text-gray-900",
+    primary: "bg-[rgba(255,255,255,0.2)] transition-colors backdrop-blur-sm hover:bg-gray-200 text-gray-900",
     secondary: "bg-gray-500 text-white hover:bg-gray-600",
     success: "bg-green-500 text-white hover:bg-green-600",
     danger: "bg-red-500 text-white hover:bg-red-600",
+    ghost: "bg-[rgba(255,255,255,0.2)] backdrop-blur-sm hover:bg-gray-200"
   };
 
   if (active) {
-    variants.primary = "bg-gray-200 text-gray-900 hover:bg-gray-400";
+    variants.primary = "bg-gray-200 transition-colors text-gray-900 hover:bg-gray-400";
     variants.secondary = "bg-gray-600 text-white hover:bg-gray-700";
     variants.success = "bg-green-600 text-white hover:bg-green-700";
     variants.danger = "bg-red-600 text-white hover:bg-red-700";
   }
   
-  const baseClasses = `transition-colors duration-700 font-bold py-1 px-2 rounded-full ${variants[variant]} ${className}`;
+  const baseClasses = `font-bold py-1 px-2 rounded-full ${variants[variant]} ${className}`;
   
   const disabledClasses = disabled ? "opacity-50 cursor-not-allowed" : "";
 

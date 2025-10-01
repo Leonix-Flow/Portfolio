@@ -1,14 +1,15 @@
 import { lazy, Suspense } from 'react';
-import "./index.css";
+import { ToggleProvider, useToggle } from "./ToggleContext";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import About from "./components/About";
-import { ToggleProvider, useToggle } from "./ToggleContext";
 import ToggleSwitch from "./components/ToggleSwitch";
+import "./index.css";
 
 // Lazy load heavier components
 const Project = lazy(() => import("./components/Projects"));
 const ContactMe = lazy(() => import("./components/Contact-me"));
+const Service = lazy(() => import("./components/Services"));
 
 // Loading fallback component
 const LoadingSpinner = () => (
@@ -33,6 +34,7 @@ const ThemedApp = () => {
         <About />
         <Suspense fallback={<LoadingSpinner />}>
           <Project />
+          <Service />
           <ContactMe />
         </Suspense>
       </main>

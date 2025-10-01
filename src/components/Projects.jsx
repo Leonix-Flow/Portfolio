@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Section from "./Section";
-import { Projects } from "../constants";
+import { projects } from "../constants";
 import { useToggle } from "../ToggleContext";
 import { motion } from "framer-motion";
 
@@ -123,9 +123,9 @@ const Project = () => {
         </motion.header>
 
         {/* Grid */}
-        {Projects.length > 0 ? (
+        {projects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Projects.map((project, idx) => (
+            {projects.map((project, idx) => (
               <Card
                 key={project.id}
                 project={project}
@@ -135,13 +135,13 @@ const Project = () => {
             ))}
           </div>
         ) : (
-          <p
-            className={`text-center ${
-              isToggled ? "text-gray-600" : "text-gray-400"
-            }`}
-          >
-            No projects available at the moment.
-          </p>
+          <div className="col-span-full bg-red-200 p-4 rounded-lg ">
+            <p
+              className={"text-center text-lg font-medium text-gray-800"}
+            > 
+              No projects available at the moment.
+            </p>
+          </div>
         )}
       </div>
     </Section>

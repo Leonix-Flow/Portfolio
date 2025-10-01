@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Button from "./Button";
-import { useLocation } from "react-router-dom";
 import { navLinks } from "../constants";
 import { Menu, X } from "lucide-react";
 
 const Header = () => {
-  const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [atTop, setAtTop] = useState(true);
+  const [activeHash, setActiveHash] = useState(window.location.hash);
+  const menuRef = useRef(null);
+  const toggleButtonRef = useRef(null);
 
+  // Handle scroll detection
   useEffect(() => {
     const handleScroll = () => setAtTop(window.scrollY === 0);
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -16,7 +18,62 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const closeMenu = () => setMobileMenuOpen(false);
+  // Handle hash changes
+  useEffect(() => {
+    const handleHashChange = () => setActiveHash(window.location.hash);
+    window.addEventListener("hashchange", handleHashChange);
+    handleHashChange();
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  // Handle click outside to close menu
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target) && 
+          toggleButtonRef.current && !toggleButtonRef.current.contains(e.target)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [mobileMenuOpen]);
+
+  // Handle escape key to close menu
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape" && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+        toggleButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [mobileMenuOpen]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
+
+  const closeMenu = () => {
+    setMobileMenuOpen(false);
+    toggleButtonRef.current?.focus();
+  };
+
+  const toggleMenu = () => setMobileMenuOpen(!mobileMenuOpen);
+
+  const isActive = (href) => activeHash === href;
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 px-2 lg:px-20">
@@ -28,7 +85,7 @@ const Header = () => {
         {/* Logo */}
         <a
           href="/"
-          className="text-[1.3rem] font-bold font-serif tracking-wide"
+          className="text-[1.3rem] font-bold font-serif tracking-wide hover:opacity-80 transition-opacity"
         >
           Leonix
         </a>
@@ -39,9 +96,9 @@ const Header = () => {
             <a
               key={link.id}
               href={link.href}
-              className={`transition-colors duration-300 hover:text-gray-400 ${
+              className={`hover:text-gray-400 ${
                 link.onlyMobile ? "lg:hidden" : ""
-              } ${location.hash === link.href ? "text-gray-400" : ""}`}
+              } ${isActive(link.href) ? "text-gray-400" : ""}`}
             >
               {link.label}
             </a>
@@ -52,8 +109,8 @@ const Header = () => {
         <div className="flex items-center gap-2">
           {/* Desktop Button */}
           <Button
-            link={"#Contact"}
-            vari
+            link="#Contact"
+            variant="ghost"
             className="hidden lg:block w-auto"
           >
             <span className="w-32">Contact Me</span>
@@ -61,9 +118,10 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            ref={toggleButtonRef}
+            onClick={toggleMenu}
             className="lg:hidden p-2 hover:bg-[rgba(255,255,255,0.3)] rounded-lg transition-colors"
-            aria-label="Toggle menu"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -73,15 +131,18 @@ const Header = () => {
 
       {/* Mobile Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden mt-2 rounded-2xl bg-[rgba(255,255,255,0.2)] backdrop-blur-sm shadow-md p-4 animate-fadeIn">
+        <div
+          ref={menuRef}
+          className="lg:hidden mt-2 rounded-2xl bg-[rgba(255,255,255,0.2)] backdrop-blur-sm shadow-md p-4 animate-fadeIn"
+        >
           <nav className="flex flex-col gap-3 font-bold text-[1rem]">
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={link.href}
                 onClick={closeMenu}
-                className={`transition-colors duration-300 hover:text-gray-400 py-2 ${
-                  location.hash === link.href ? "text-gray-400" : ""
+                className={`hover:text-gray-400 py-2 px-2 rounded-lg hover:bg-[rgba(255,255,255,0.2)] ${
+                  isActive(link.href) ? "text-gray-400" : ""
                 }`}
               >
                 {link.label}
@@ -90,8 +151,8 @@ const Header = () => {
             <a
               href="#Contact"
               onClick={closeMenu}
-              className={`transition-colors duration-300 hover:text-gray-400 py-2 ${
-                location.hash === "#Contact" ? "text-gray-400" : ""
+              className={`hover:text-gray-400 py-2 px-2 rounded-lg hover:bg-[rgba(255,255,255,0.2)] ${
+                isActive("#Contact") ? "text-gray-400" : ""
               }`}
             >
               Contact Me

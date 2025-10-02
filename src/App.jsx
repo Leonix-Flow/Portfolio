@@ -14,9 +14,17 @@ const Service = lazy(() => import("./components/Services"));
 // Loading fallback component
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center py-20">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-600"></div>
+    <div className="relative h-12 w-12">
+      <div className="absolute inset-0 animate-spin rounded-full border-b-2 border-gray-600"></div>
+      <img
+        src="/Icon.svg"
+        alt="Loading..."
+        className="absolute inset-0 m-auto h-9 w-9 rounded-full bg-gray-800"
+      />
+    </div>
   </div>
 );
+
 
 const ThemedApp = () => {
   const { isToggled } = useToggle();

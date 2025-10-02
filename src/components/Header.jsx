@@ -87,7 +87,7 @@ const Header = () => {
         {/* Logo */}
         <a
           href="/"
-          className="text-[1.3rem] font-bold font-serif tracking-wide hover:opacity-80 transition-opacity"
+          className="text-[1.3rem] font-bold font-serif block tracking-wide hover:opacity-80 transition-opacity"
         >
           Leonix
         </a>

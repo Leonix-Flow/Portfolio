@@ -1,10 +1,8 @@
 import React from "react";
 import Section from "./Section";
 import { useToggle } from "../ToggleContext";
-import { Code, Palette, Smartphone, Zap, Globe, Database } from "lucide-react";
 import { motion } from "framer-motion";
 import { services } from "../constants";
-import { div } from "framer-motion/client";
 
 
 const fadeUp = {
@@ -17,7 +15,7 @@ const fadeUp = {
 };
 
 const ServiceCard = ({ icon: Icon, title, description, features, index, isToggled }) => (
-  <motion.div
+  <div
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true, amount: 0.2 }}
@@ -70,7 +68,7 @@ const ServiceCard = ({ icon: Icon, title, description, features, index, isToggle
         </li>
       ))}
     </ul>
-  </motion.div>
+  </div>
 );
 
 const Services = () => {

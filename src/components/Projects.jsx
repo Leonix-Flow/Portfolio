@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import Section from "./Section";
 import { projects } from "../constants";
@@ -18,7 +17,7 @@ const Card = ({ project, isToggled, index }) => {
   const { img, title, description, link } = project;
 
   return (
-    <motion.article
+    <article
       className={`${
         isToggled ? "bg-white" : "bg-gray-800"
       } rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl`}
@@ -69,7 +68,7 @@ const Card = ({ project, isToggled, index }) => {
           </a>
         )}
       </div>
-    </motion.article>
+    </article>
   );
 };
 

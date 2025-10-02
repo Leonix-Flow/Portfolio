@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FiCircle, FiCode, FiFileText, FiLayers, FiLayout } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToggle } from "../ToggleContext";
@@ -32,7 +32,7 @@ const slideVariants = {
 
 const swipeThreshold = 100; // Minimum drag+velocity to count as swipe
 
-export default function Carousel({
+export default function Carousel ({
   items = DEFAULT_ITEMS,
   autoPlay = true,
   autoPlayDelay = 4000,

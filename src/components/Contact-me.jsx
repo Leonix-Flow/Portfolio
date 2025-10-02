@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useToggle } from "../ToggleContext";
 import Section from "./Section";
 import {
   Mail,
   MapPin,
   Phone,
-  Send,
   Github,
   Linkedin,
-  Twitter,
+  Send,
   CheckCircle,
   AlertCircle,
+  Facebook,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { SiFiverr } from "react-icons/si";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -23,9 +24,10 @@ const fadeUp = {
   }),
 };
 
-const ContactMe = () => {
+const ContactMe = ({ showForm = false }) => {
   const { isToggled } = useToggle();
 
+  // --- Form State ---
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,11 +36,10 @@ const ContactMe = () => {
   });
 
   const [status, setStatus] = useState({
-    type: "idle", // "idle" | "loading" | "success" | "error"
+    type: "idle",
     message: "",
   });
 
-  // Auto-hide success message after 5s
   useEffect(() => {
     if (status.type === "success") {
       const timer = setTimeout(() => {
@@ -50,51 +51,9 @@ const ContactMe = () => {
 
   const [errors, setErrors] = useState({});
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "olusojleo@gmail.com",
-      href: "mailto:olusojleo@gmail.com",
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+234 9074155361",
-      href: "tel:+2349074155361",
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: "Lagos, Nigeria",
-      href: null,
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: Github,
-      label: "GitHub",
-      href: "https://github.com/yourusername",
-      color: isToggled ? "hover:text-gray-900" : "hover:text-gray-300",
-    },
-    {
-      icon: Linkedin,
-      label: "LinkedIn",
-      href: "https://linkedin.com/in/yourusername",
-      color: "hover:text-blue-600",
-    },
-    {
-      icon: Twitter,
-      label: "Twitter",
-      href: "https://twitter.com/yourusername",
-      color: "hover:text-sky-500",
-    },
-  ];
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" }); // clear error when typing
+    setErrors({ ...errors, [e.target.name]: "" });
   };
 
   const validateForm = () => {
@@ -126,7 +85,6 @@ const ContactMe = () => {
     setStatus({ type: "loading", message: "" });
 
     try {
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
       setStatus({
@@ -144,10 +102,58 @@ const ContactMe = () => {
     }
   };
 
+  const contactInfo = [
+    {
+      icon: Mail,
+      label: "Email",
+      value: "olusojleo@gmail.com",
+      href: "mailto:olusojleo@gmail.com",
+    },
+    {
+      icon: Phone,
+      label: "Phone",
+      value: "+234 9074155361",
+      href: "tel:+2349074155361",
+    },
+    {
+      icon: MapPin,
+      label: "Location",
+      value: "Ogun, Nigeria",
+      href: null,
+    },
+  ];
+
+  const socialLinks = [
+    {
+      icon: Github,
+      label: "GitHub",
+      href: "https://github.com/Adeleonix",
+      color: isToggled ? "hover:text-gray-900" : "hover:text-gray-300",
+    },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/leonixadeleke",
+      color: "hover:text-blue-600",
+    },
+    {
+      icon: Facebook,
+      label: "Facebook",
+      href: "https://web.facebook.com/people/Toheeb-Adeleke/61580642197907/",
+      color: "hover:text-blue-600",
+    },
+    { 
+      icon: SiFiverr,
+      label: "Fiverr",
+      href: "https://www.fiverr.com/s/kLyY5Ko",
+      color: "hover:text-green-600",
+    },
+  ];
+
   return (
     <Section
       id="Contact"
-      className="min-h-screen w-full flex flex-col justify-center items-center py-20 px-4"
+      className="min-h-screen w-full flex flex-col justify-center items-center py-20 border-t border-gray-800 px-4"
     >
       <div className="max-w-6xl w-full mx-auto">
         {/* Header */}
@@ -181,181 +187,113 @@ const ContactMe = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Contact Form */}
-          <motion.div
-            className={`lg:col-span-2 ${
-              isToggled ? "bg-white/80 border-gray-200" : "bg-gray-900/80 border-gray-700"
-            } backdrop-blur-sm p-6 lg:p-8 rounded-2xl shadow-xl border`}
-            variants={fadeUp}
-            custom={3}
-          >
-            <form onSubmit={handleSubmit} noValidate className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* Name */}
+        {/* Responsive Layout: 2-cols if form, 1-col if not */}
+        <div className={`grid gap-8 ${showForm ? "lg:grid-cols-3" : "lg:grid-cols-1"}`}>
+          {/* Form Column (conditionally shown) */}
+          {showForm && (
+            <motion.div
+              className={`lg:col-span-2 ${
+                isToggled ? "bg-white/80 border-gray-200" : "bg-gray-900/80 border-gray-700"
+              } backdrop-blur-sm p-6 lg:p-8 rounded-2xl shadow-xl border`}
+              variants={fadeUp}
+              custom={3}
+            >
+              <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="name" className={`block text-sm font-semibold mb-2 ${isToggled ? "text-gray-800" : "text-gray-200"}`}>
+                      Your Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-3 border rounded-lg outline-none ${isToggled ? "bg-white text-gray-800 border-gray-300" : "bg-gray-800 text-gray-200 border-gray-600"}`}
+                      placeholder="John Doe"
+                    />
+                    {errors.name && <p className="text-sm text-red-500 mt-1">{errors.name}</p>}
+                  </div>
+                  <div>
+                    <label htmlFor="email" className={`block text-sm font-semibold mb-2 ${isToggled ? "text-gray-800" : "text-gray-200"}`}>
+                      Your Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-3 border rounded-lg outline-none ${isToggled ? "bg-white text-gray-800 border-gray-300" : "bg-gray-800 text-gray-200 border-gray-600"}`}
+                      placeholder="john@example.com"
+                    />
+                    {errors.email && <p className="text-sm text-red-500 mt-1">{errors.email}</p>}
+                  </div>
+                </div>
                 <div>
-                  <label
-                    htmlFor="name"
-                    className={`block text-sm font-semibold mb-2 ${
-                      isToggled ? "text-gray-800" : "text-gray-200"
-                    }`}
-                  >
-                    Your Name *
+                  <label htmlFor="subject" className={`block text-sm font-semibold mb-2 ${isToggled ? "text-gray-800" : "text-gray-200"}`}>
+                    Subject
                   </label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
                     onChange={handleChange}
-                    aria-invalid={!!errors.name}
-                    className={`w-full px-4 py-3 border rounded-lg outline-none transition-all ${
-                      isToggled
-                        ? "bg-white text-gray-800 border-gray-300 focus:ring-2 focus:ring-gray-500"
-                        : "bg-gray-800 text-gray-200 border-gray-600 focus:ring-2 focus:ring-gray-400"
-                    }`}
-                    placeholder="John Doe"
+                    className={`w-full px-4 py-3 border rounded-lg outline-none ${isToggled ? "bg-white text-gray-800 border-gray-300" : "bg-gray-800 text-gray-200 border-gray-600"}`}
+                    placeholder="Let's work together"
                   />
-                  {errors.name && (
-                    <p className="text-sm text-red-500 mt-1">{errors.name}</p>
-                  )}
                 </div>
-
-                {/* Email */}
                 <div>
-                  <label
-                    htmlFor="email"
-                    className={`block text-sm font-semibold mb-2 ${
-                      isToggled ? "text-gray-800" : "text-gray-200"
-                    }`}
-                  >
-                    Your Email *
+                  <label htmlFor="message" className={`block text-sm font-semibold mb-2 ${isToggled ? "text-gray-800" : "text-gray-200"}`}>
+                    Message *
                   </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    value={formData.message}
                     onChange={handleChange}
-                    aria-invalid={!!errors.email}
-                    className={`w-full px-4 py-3 border rounded-lg outline-none transition-all ${
-                      isToggled
-                        ? "bg-white text-gray-800 border-gray-300 focus:ring-2 focus:ring-gray-500"
-                        : "bg-gray-800 text-gray-200 border-gray-600 focus:ring-2 focus:ring-gray-400"
-                    }`}
-                    placeholder="john@example.com"
+                    className={`w-full px-4 py-3 border rounded-lg outline-none resize-none ${isToggled ? "bg-white text-gray-800 border-gray-300" : "bg-gray-800 text-gray-200 border-gray-600"}`}
+                    placeholder="Your message..."
                   />
-                  {errors.email && (
-                    <p className="text-sm text-red-500 mt-1">{errors.email}</p>
-                  )}
+                  {errors.message && <p className="text-sm text-red-500 mt-1">{errors.message}</p>}
                 </div>
-              </div>
-
-              {/* Subject */}
-              <div>
-                <label
-                  htmlFor="subject"
-                  className={`block text-sm font-semibold mb-2 ${
-                    isToggled ? "text-gray-800" : "text-gray-200"
-                  }`}
-                >
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg outline-none transition-all ${
-                    isToggled
-                      ? "bg-white text-gray-800 border-gray-300 focus:ring-2 focus:ring-gray-500"
-                      : "bg-gray-800 text-gray-200 border-gray-600 focus:ring-2 focus:ring-gray-400"
-                  }`}
-                  placeholder="Project Inquiry"
-                />
-              </div>
-
-              {/* Message */}
-              <div>
-                <label
-                  htmlFor="message"
-                  className={`block text-sm font-semibold mb-2 ${
-                    isToggled ? "text-gray-800" : "text-gray-200"
-                  }`}
-                >
-                  Your Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={6}
-                  aria-invalid={!!errors.message}
-                  className={`w-full px-4 py-3 border rounded-lg outline-none transition-all resize-none ${
-                    isToggled
-                      ? "bg-white text-gray-800 border-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-gray-500"
-                      : "bg-gray-800 text-gray-200 border-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-gray-400"
-                  }`}
-                  placeholder="Tell me about your project..."
-                />
-                {errors.message && (
-                  <p className="text-sm text-red-500 mt-1">{errors.message}</p>
+                {/* Status messages */}
+                {status.type === "success" && (
+                  <p className="text-sm text-green-600 flex items-center gap-2">
+                    <CheckCircle size={16} /> {status.message}
+                  </p>
                 )}
-              </div>
-
-              {/* Status Message */}
-              {status.message && (
-                <div
-                  aria-live="polite"
-                  className={`flex items-center gap-3 p-4 rounded-lg ${
-                    status.type === "success"
-                      ? "bg-green-50 text-green-800 border border-green-200"
-                      : status.type === "error"
-                      ? "bg-red-50 text-red-800 border border-red-200"
-                      : ""
-                  }`}
-                >
-                  {status.type === "success" ? (
-                    <CheckCircle size={20} />
-                  ) : (
-                    <AlertCircle size={20} />
-                  )}
-                  <span className="text-sm font-medium">{status.message}</span>
-                </div>
-              )}
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={status.type === "loading"}
-                className={`w-full ${
-                  isToggled
-                    ? "bg-gray-800 hover:bg-gray-900"
-                    : "bg-gray-700 hover:bg-gray-600"
-                } text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
-              >
-                {status.type === "loading" ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send size={20} />
-                    Send Message
-                  </>
+                {status.type === "error" && (
+                  <p className="text-sm text-red-500 flex items-center gap-2">
+                    <AlertCircle size={16} /> {status.message}
+                  </p>
                 )}
-              </button>
-            </form>
-          </motion.div>
+                <button
+                  type="submit"
+                  className={`flex items-center gap-2 px-6 py-3 rounded-lg text-white transition ${
+                    status.type === "loading"
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-700"
+                  }`}
+                  disabled={status.type === "loading"}
+                >
+                  {status.type === "loading" ? "Sending..." : "Send Message"}
+                  <Send size={18} />
+                </button>
+              </form>
+            </motion.div>
+          )}
 
-          {/* Sidebar: Info + Social + Availability */}
+          {/* Right Sidebar */}
           <div className="space-y-6">
-            {/* Contact Info */}
+            {/* Contact Info Card */}
             <motion.div
-              className={`${isToggled ? "bg-white/80 border-gray-200" : "bg-gray-900 border-gray-700"} backdrop-blur-sm p-6 rounded-2xl shadow-xl border`}
+              className={`${
+                isToggled ? "bg-white/80 border-gray-200" : "bg-gray-900 border-gray-700"
+              } backdrop-blur-sm p-6 rounded-2xl shadow-xl border`}
               variants={fadeUp}
               custom={4}
             >

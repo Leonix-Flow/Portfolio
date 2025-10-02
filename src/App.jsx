@@ -26,7 +26,7 @@ const ThemedApp = () => {
       <div className="fixed w-screen px-4 z-20">
         <Header />
       </div>
-      <div className="fixed bottom-6 right-4 sm:bottom-8 sm:right-8 z-30">
+      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-30">
         <ToggleSwitch />
       </div>
       <main>
@@ -38,8 +38,8 @@ const ThemedApp = () => {
           <ContactMe />
         </Suspense>
       </main>
-      <footer className="text-center border-t border-gray-400 p-4">
-        leonix &copy; {new Date().getFullYear()}
+      <footer className="text-center border-t border-gray-300 dark:border-gray-700 p-4 text-sm text-gray-600 dark:text-gray-400">
+        &copy; {new Date().getFullYear()} Leonix. All rights reserved.
       </footer>
     </div>
   );

@@ -1,8 +1,7 @@
 import Section from "./Section";
 import Button from "./Button";
-import { 
-  FaEnvelope, FaFacebook, FaGithub, FaInstagram, FaWhatsapp, FaArrowDown 
-} from "react-icons/fa";
+import { FaFacebook, FaGithub, FaInstagram, FaWhatsapp, FaArrowDown } from "react-icons/fa";
+import { FaThreads } from "react-icons/fa6";
 import { useToggle } from "../ToggleContext";
 import TextType from "./Typed";
 import { motion } from "framer-motion";
@@ -25,17 +24,17 @@ const Hero = () => {
     textPrimary: isToggled ? "text-gray-800" : "text-gray-200",
     textSecondary: isToggled ? "text-gray-700" : "text-gray-300",
     textMuted: isToggled ? "text-gray-700" : "text-gray-400",
-    border: isToggled ? "border-gray-400" : "border-gray-600",
+    border: isToggled ? "border-gray-400" : "border-transparent",
     underline: isToggled ? "decoration-gray-800" : "decoration-gray-200",
     arrow: isToggled ? "text-gray-800 hover:text-gray-600" : "text-gray-200 hover:text-gray-400",
   };
 
   const socialLinks = [
-    { icon: FaGithub, href: "https://github.com/yourusername", color: isToggled ? "hover:text-gray-900" : "hover:text-gray-400", label: "GitHub" },
-    { icon: FaFacebook, href: "https://facebook.com/yourprofile", color: "hover:text-blue-600", label: "Facebook" },
-    { icon: FaInstagram, href: "https://instagram.com/yourprofile", color: "hover:text-pink-600", label: "Instagram" },
-    { icon: FaWhatsapp, href: "https://wa.me/yourphonenumber", color: "hover:text-green-600", label: "WhatsApp" },
-    { icon: FaEnvelope, href: "mailto:your.email@example.com", color: "hover:text-red-600", label: "Email" },
+    { icon: FaGithub, href: "https://github.com/Adeleonix", color: isToggled ? "hover:text-gray-900" : "hover:text-gray-400", label: "GitHub" },
+    { icon: FaFacebook, href: "https://web.facebook.com/people/Toheeb-Adeleke/61580642197907/", color: "hover:text-blue-600", label: "Facebook" },
+    { icon: FaInstagram, href: "https://instagram.com/leonixdevz", color: "hover:text-pink-600", label: "Instagram" },
+    { icon: FaWhatsapp, href: "https://wa.me/2349074155361", color: "hover:text-green-600", label: "WhatsApp" },
+    { icon: FaThreads, href: "https://www.threads.com/@leonixdevz", color: "hover:text-gray-600", label: "Thread" },
   ];
 
   const MotionDiv = motion.div;
@@ -58,7 +57,7 @@ const Hero = () => {
         custom={0}
       >
         <img
-          src="./PIC-profile.jpg"
+          src="./PIC-profile-me.jpg"
           alt="Toheeb Adeleke - Software Developer"
           className="w-full h-full object-cover"
         />

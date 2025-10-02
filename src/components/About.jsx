@@ -1,4 +1,3 @@
-import React from "react";
 import Section from "./Section";
 import Carousel from "./Carousel ";
 import { useToggle } from "../ToggleContext";
@@ -39,7 +38,7 @@ export default function About() {
       id="about"
       className="min-h-screen w-full flex flex-col justify-center items-center py-20"
     >
-      <motion.div
+      <div
         className={`lg:max-w-[80%] max-w-[90%] mx-auto p-8 ${bg} rounded-lg shadow-lg`}
         initial="hidden"
         whileInView="visible"
@@ -70,13 +69,13 @@ export default function About() {
         </motion.p>
 
         {/* Skills & Carousel */}
-        <motion.div
+        <div
           className="mb-6 flex flex-col gap-6 lg:flex-row lg:gap-8"
           variants={fadeUp}
           custom={3}
         >
           {/* Skills */}
-          <motion.div
+          <div
             className={`flex-1 ${cardBg} p-6 rounded-lg shadow-md`}
             variants={fadeUp}
             custom={4}
@@ -101,7 +100,7 @@ export default function About() {
                 </motion.li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Carousel */}
           <motion.div
@@ -120,10 +119,10 @@ export default function About() {
               />
             </div>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* What I Do */}
-        <motion.div
+        <div
           className={`${cardBg} ${textPrimary} p-6 rounded-lg shadow-md`}
           variants={fadeUp}
           custom={7 + skills.length}
@@ -137,8 +136,8 @@ export default function About() {
             reality. I believe in writing clean, maintainable code and creating
             intuitive user experiences that make a difference.
           </p>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </Section>
   );
 }

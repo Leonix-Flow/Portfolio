@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
-import Button from "./Button";
+import { useState, useEffect, useRef, } from "react";
 import { navLinks } from "../constants";
 import { Menu, X } from "lucide-react";
+import { useToggle } from "../ToggleContext";
+import Button from "./Button";
 
 const Header = () => {
+  const { isToggled } = useToggle();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [atTop, setAtTop] = useState(true);
   const [activeHash, setActiveHash] = useState(window.location.hash);
@@ -112,6 +114,7 @@ const Header = () => {
             link="#Contact"
             variant="ghost"
             className="hidden lg:block w-auto"
+            active={isToggled ? "" : "active"}
           >
             <span className="w-32">Contact Me</span>
           </Button>

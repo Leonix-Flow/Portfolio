@@ -62,9 +62,7 @@ export default function Carousel ({
 
   return (
     <div
-      className={`w-full max-w-md mx-auto p-4 rounded-xl border overflow-hidden ${
-        isToggled ? "bg-white border-gray-200" : "bg-gray-900 border-gray-700"
-      }`}
+      className={`w-full max-w-md mx-auto p-4 rounded-xl overflow-hidden`}
     >
       <div className="relative w-full h-[220px] sm:h-[200px] flex items-center justify-center">
         <AnimatePresence custom={direction} initial={false}>
@@ -93,7 +91,7 @@ export default function Carousel ({
               <div className="flex justify-center mb-4">
                 <div
                   className={`p-3 rounded-full ${
-                    isToggled ? "bg-gray-200 text-gray-900" : "bg-gray-800 text-white"
+                    isToggled ? "bg-gray-200/40 text-gray-900" : "bg-gray-800/40 text-white"
                   }`}
                 >
                   {currentItem.icon}
@@ -108,7 +106,7 @@ export default function Carousel ({
               </h3>
               <p
                 className={`text-sm mt-2 ${
-                  isToggled ? "text-gray-600" : "text-gray-400"
+                  isToggled ? "text-gray-900" : "text-gray-300"
                 }`}
               >
                 {currentItem.description}
@@ -122,7 +120,7 @@ export default function Carousel ({
       <div className="flex justify-between items-center mt-6">
         <button
           onClick={() => paginate(-1)}
-          className="text-sm text-gray-400 hover:text-white transition"
+          className={`text-sm ${isToggled ? "text-black" : "text-gray-300"} hover:text-white transition`}
         >
           ← Prev
         </button>
@@ -144,7 +142,7 @@ export default function Carousel ({
         </div>
         <button
           onClick={() => paginate(1)}
-          className="text-sm text-gray-400 hover:text-white transition"
+          className={`text-sm ${isToggled ? "text-black" : "text-gray-300"} hover:text-white transition`}
         >
           Next →
         </button>

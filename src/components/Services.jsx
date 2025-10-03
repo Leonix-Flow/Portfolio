@@ -21,32 +21,24 @@ const ServiceCard = ({ icon: Icon, title, description, features, index, isToggle
     viewport={{ once: true, amount: 0.2 }}
     variants={fadeUp}
     custom={index}
-    className={`p-6 text-left rounded-xl border transition-colors duration-300 ${
-      isToggled
-        ? "bg-white border-gray-200 hover:border-gray-300"
-        : "bg-gray-900 border-gray-700 hover:border-gray-600"
-    }`}
+    className={`p-6 text-left rounded-xl shadow-xl transition-colors duration-300 bg-white/30 dark:bg-gray-600/30`}
   >
     <div
-      className={`mb-4 inline-flex p-3 rounded-lg ${
-        isToggled ? "bg-gray-100" : "bg-gray-800"
-      }`}
+      className={`mb-4 inline-flex p-3 rounded-lg bg-white/30 dark:bg-gray-600/30`}
     >
       <Icon
         size={28}
-        className={isToggled ? "text-gray-800" : "text-gray-200"}
+        className={isToggled ? "text-gray-900" : "text-gray-200"}
       />
     </div>
     <h3
-      className={`text-lg font-semibold mb-2 ${
-        isToggled ? "text-gray-900" : "text-gray-100"
-      }`}
+      className={`text-lg font-semibold mb-2 `}
     >
       {title}
     </h3>
     <p
       className={`text-sm mb-4 leading-relaxed ${
-        isToggled ? "text-gray-700" : "text-gray-400"
+        isToggled ? "text-gray-900" : "text-gray-300"
       }`}
     >
       {description}
@@ -56,12 +48,12 @@ const ServiceCard = ({ icon: Icon, title, description, features, index, isToggle
         <li
           key={idx}
           className={`flex items-center ${
-            isToggled ? "text-gray-600" : "text-gray-400"
+            isToggled ? "text-gray-900" : "text-gray-300"
           }`}
         >
           <span
             className={`w-1.5 h-1.5 rounded-full mr-2 ${
-              isToggled ? "bg-gray-800" : "bg-gray-400"
+              isToggled ? "bg-gray-800" : "bg-gray-300"
             }`}
           ></span>
           {feature}
@@ -88,9 +80,7 @@ const Services = () => {
           <motion.h2
             variants={fadeUp}
             custom={0}
-            className={`text-3xl md:text-4xl font-bold mb-4 ${
-              isToggled ? "text-gray-900" : "text-white"
-            }`}
+            className={`text-3xl md:text-4xl font-bold mb-4`}
           >
             What I Offer
           </motion.h2>
@@ -98,7 +88,7 @@ const Services = () => {
             variants={fadeUp}
             custom={1}
             className={`text-base md:text-lg ${
-              isToggled ? "text-gray-600" : "text-gray-400"
+              isToggled ? "text-gray-800" : "text-gray-300"
             }`}
           >
             Services that combine creativity, functionality, and performance to bring your ideas to life.
@@ -130,34 +120,6 @@ const Services = () => {
           )}
         </div>
 
-
-        {/* CTA */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={fadeUp}
-          custom={services.length + 2}
-          className="text-center mt-16"
-        >
-          <p
-            className={`text-base md:text-lg mb-4 ${
-              isToggled ? "text-gray-700" : "text-gray-300"
-            }`}
-          >
-            Have something in mind? Let's create something great together.
-          </p>
-          <a
-            href="#contact"
-            className={`inline-block px-6 py-2.5 rounded-md font-medium transition-all duration-300 hover:scale-105 shadow-md ${
-              isToggled
-                ? "bg-gray-800 text-white hover:bg-gray-900"
-                : "bg-gray-700 text-gray-100 hover:bg-gray-600"
-            }`}
-          >
-            Get in Touch
-          </a>
-        </motion.div>
       </div>
     </Section>
   );

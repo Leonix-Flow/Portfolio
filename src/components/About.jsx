@@ -28,10 +28,8 @@ export default function About() {
   ];
 
   // Theme helpers
-  const bg = isToggled ? "bg-white" : "bg-gray-900";
-  const cardBg = isToggled ? "bg-gray-50" : "bg-gray-800";
-  const textPrimary = isToggled ? "text-gray-800" : "text-gray-200";
-  const textSecondary = isToggled ? "text-gray-700" : "text-gray-300";
+  const bg = "bg-white/30 dark:bg-gray-600/30"
+  const text = isToggled ? "text-gray-900" : "text-gray-300";
 
   return (
     <Section
@@ -39,7 +37,7 @@ export default function About() {
       className="min-h-screen w-full flex flex-col justify-center items-center py-20"
     >
       <div
-        className={`lg:max-w-[80%] max-w-[90%] mx-auto p-8 ${bg} rounded-lg shadow-lg`}
+        className={`lg:w-6xl w-[92vw] mx-auto p-8 ${bg} rounded-lg shadow-xl`}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
@@ -47,7 +45,7 @@ export default function About() {
       >
         {/* Heading */}
         <motion.h2
-          className={`text-4xl font-bold mb-8 text-center ${textPrimary}`}
+          className={`text-4xl font-bold mb-8 text-center `}
           variants={fadeUp}
           custom={1}
         >
@@ -56,7 +54,7 @@ export default function About() {
 
         {/* Intro */}
         <motion.p
-          className={`mb-8 text-justify ${cardBg} ${textPrimary} p-6 shadow-md rounded-lg leading-relaxed`}
+          className={`mb-8 text-justify ${bg} ${text} p-6 shadow-md rounded-lg leading-relaxed`}
           variants={fadeUp}
           custom={2}
         >
@@ -76,11 +74,11 @@ export default function About() {
         >
           {/* Skills */}
           <div
-            className={`flex-1 ${cardBg} p-6 rounded-lg shadow-md`}
+            className={`flex-1 ${bg} p-6 rounded-lg shadow-md`}
             variants={fadeUp}
             custom={4}
           >
-            <h3 className={`text-2xl font-bold mb-6 ${textPrimary}`}>
+            <h3 className={`text-2xl font-bold mb-6 ${text}`}>
               My Skills
             </h3>
             <ul className="space-y-3">
@@ -96,7 +94,7 @@ export default function About() {
                       isToggled ? "bg-blue-600" : "bg-blue-400"
                     } rounded-full mt-2 flex-shrink-0`}
                   />
-                  <span className={textSecondary}>{skill}</span>
+                  <span className={text}>{skill}</span>
                 </motion.li>
               ))}
             </ul>
@@ -104,7 +102,7 @@ export default function About() {
 
           {/* Carousel */}
           <motion.div
-            className={`w-full lg:w-[360px] flex justify-center items-center ${cardBg} p-4 rounded-lg shadow-md`}
+            className={`w-full lg:w-[360px] flex justify-center items-center ${bg} p-4 rounded-lg shadow-md`}
             variants={fadeUp}
             custom={6 + skills.length}
           >
@@ -123,14 +121,14 @@ export default function About() {
 
         {/* What I Do */}
         <div
-          className={`${cardBg} ${textPrimary} p-6 rounded-lg shadow-md`}
+          className={`${bg} ${text} p-6 rounded-lg shadow-md`}
           variants={fadeUp}
           custom={7 + skills.length}
         >
-          <h3 className={`text-2xl font-bold mb-4 ${textPrimary}`}>
+          <h3 className={`text-2xl font-bold mb-4 ${text}`}>
             What I Do
           </h3>
-          <p className={`${textSecondary} leading-relaxed`}>
+          <p className={`${text} leading-relaxed`}>
             From building responsive web applications to developing mobile apps
             and implementing AI solutions, I thrive on turning ideas into
             reality. I believe in writing clean, maintainable code and creating

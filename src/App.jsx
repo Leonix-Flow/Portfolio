@@ -46,7 +46,7 @@ const ThemedApp = () => {
           <ContactMe />
         </Suspense>
       </main>
-      <footer className="text-center border-t border-gray-300 dark:border-gray-700 p-4 text-sm text-gray-600 dark:text-gray-400">
+      <footer className="text-center border-t border-gray-300 dark:border-gray-700 p-4 text-sm ">
         &copy; {new Date().getFullYear()} Leonix. All rights reserved.
       </footer>
     </div>

@@ -4,6 +4,7 @@ import { projects } from "../constants";
 import { useToggle } from "../ToggleContext";
 import { motion } from "framer-motion";
 
+
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i = 0) => ({
@@ -17,10 +18,8 @@ const Card = ({ project, isToggled, index }) => {
   const { img, title, description, link } = project;
 
   return (
-    <article
-      className={`${
-        isToggled ? "bg-white" : "bg-gray-800"
-      } rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl`}
+    <div
+      className={`rounded-lg bg-white/30 dark:bg-gray-600/30 shadow-xl overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl`}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.5 }}
@@ -38,7 +37,7 @@ const Card = ({ project, isToggled, index }) => {
       <div className="p-6">
         <h3
           className={`text-xl font-semibold mb-2 ${
-            isToggled ? "text-gray-800" : "text-gray-200"
+            isToggled ? "text-gray-900" : "text-gray-200"
           }`}
         >
           {title}
@@ -46,7 +45,7 @@ const Card = ({ project, isToggled, index }) => {
         {description && (
           <p
             className={`${
-              isToggled ? "text-gray-600" : "text-gray-400"
+              isToggled ? "text-gray-900" : "text-gray-300"
             } text-sm leading-relaxed`}
           >
             {description}
@@ -68,7 +67,7 @@ const Card = ({ project, isToggled, index }) => {
           </a>
         )}
       </div>
-    </article>
+    </div>
   );
 };
 
@@ -92,7 +91,7 @@ const Project = () => {
       className="w-full py-20 flex justify-center items-center"
       id="projects"
     >
-      <div className="max-w-6xl w-full mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <motion.header
           className="text-center mb-12"
@@ -102,9 +101,7 @@ const Project = () => {
           variants={fadeUp}
         >
           <motion.h2
-            className={`text-4xl font-bold ${
-              isToggled ? "text-gray-800" : "text-white"
-            } mb-4`}
+            className={`text-4xl font-bold mb-4`}
             variants={fadeUp}
             custom={0}
           >
@@ -112,7 +109,7 @@ const Project = () => {
           </motion.h2>
           <motion.p
             className={`${
-              isToggled ? "text-gray-600" : "text-gray-300"
+              isToggled ? "text-gray-800" : "text-gray-300"
             } max-w-2xl mx-auto`}
             variants={fadeUp}
             custom={1}

@@ -91,7 +91,7 @@ export default function About() {
                 >
                   <span
                     className={`inline-block w-2 h-2 ${
-                      isToggled ? "bg-blue-600" : "bg-blue-400"
+                      isToggled ? "bg-gray-800" : "bg-gray-300"
                     } rounded-full mt-2 flex-shrink-0`}
                   />
                   <span className={text}>{skill}</span>

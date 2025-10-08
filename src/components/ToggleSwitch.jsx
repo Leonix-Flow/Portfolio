@@ -21,7 +21,7 @@ const ThemeToggle = () => {
           className={`w-6 h-6 flex items-center justify-center rounded-full transition-colors duration-200
             ${theme === opt.value
               ? "bg-gray-400"
-              : "text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600"
+              : ""
             }`}
         >
           {opt.icon}

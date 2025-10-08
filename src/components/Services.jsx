@@ -2,8 +2,7 @@ import React from "react";
 import Section from "./Section";
 import { useToggle } from "../ToggleContext";
 import { motion } from "framer-motion";
-import { services } from "../constants";
-
+import { services } from "../constants"; // imported from your JSON-mapped file
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -14,28 +13,34 @@ const fadeUp = {
   }),
 };
 
-const ServiceCard = ({ icon: Icon, title, description, features, index, isToggled }) => (
+// ✅ Updated ServiceCard
+const ServiceCard = ({
+  icon: Icon,
+  title,
+  description,
+  whatsapp_link,
+  whatsapp_text,
+  index,
+  isToggled,
+}) => (
   <div
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true, amount: 0.2 }}
     variants={fadeUp}
     custom={index}
-    className={`p-6 text-left rounded-xl shadow-xl transition-colors duration-300 bg-white/30 dark:bg-gray-600/30`}
+    className={`p-6 text-left rounded-xl shadow-xl transition-colors duration-300 bg-white/30 dark:bg-gray-600/30
+      backdrop-blur-md`}
   >
-    <div
-      className={`mb-4 inline-flex p-3 rounded-lg bg-white/30 dark:bg-gray-600/30`}
-    >
-      <Icon
-        size={28}
-        className={isToggled ? "text-gray-900" : "text-gray-200"}
-      />
+    {/* Icon */}
+    <div className="mb-4 inline-flex p-3 rounded-lg bg-white/20 dark:bg-gray-600/30">
+      {Icon && <Icon size={28} className={isToggled ? "text-gray-900" : "text-gray-200"} />}
     </div>
-    <h3
-      className={`text-lg font-semibold mb-2 `}
-    >
-      {title}
-    </h3>
+
+    {/* Title */}
+    <h3 className="text-lg font-semibold mb-2">{title}</h3>
+
+    {/* Description */}
     <p
       className={`text-sm mb-4 leading-relaxed ${
         isToggled ? "text-gray-900" : "text-gray-300"
@@ -43,23 +48,18 @@ const ServiceCard = ({ icon: Icon, title, description, features, index, isToggle
     >
       {description}
     </p>
-    <ul className="space-y-1 text-sm">
-      {features.map((feature, idx) => (
-        <li
-          key={idx}
-          className={`flex items-center ${
-            isToggled ? "text-gray-900" : "text-gray-300"
-          }`}
-        >
-          <span
-            className={`w-1.5 h-1.5 rounded-full mr-2 ${
-              isToggled ? "bg-gray-800" : "bg-gray-300"
-            }`}
-          ></span>
-          {feature}
-        </li>
-      ))}
-    </ul>
+
+    {/* WhatsApp Link */}
+    {whatsapp_link && (
+      <a
+        href={whatsapp_link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block text-sm font-semibold text-gray-800 hover:text-gray-900 transition"
+      >
+        {whatsapp_text || "Contact Now"} →
+      </a>
+    )}
   </div>
 );
 
@@ -80,7 +80,7 @@ const Services = () => {
           <motion.h2
             variants={fadeUp}
             custom={0}
-            className={`text-3xl md:text-4xl font-bold mb-4`}
+            className="text-3xl md:text-4xl font-bold mb-4"
           >
             What I Offer
           </motion.h2>
@@ -91,12 +91,13 @@ const Services = () => {
               isToggled ? "text-gray-800" : "text-gray-300"
             }`}
           >
-            Services that combine creativity, functionality, and performance to bring your ideas to life.
+            A full range of creative and technical services to help you build,
+            design, and grow your digital presence.
           </motion.p>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <motion.div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.length > 0 ? (
             services.map((service, index) => (
               <ServiceCard
@@ -104,22 +105,20 @@ const Services = () => {
                 icon={service.icon}
                 title={service.title}
                 description={service.description}
-                features={service.features}
+                whatsapp_link={service.whatsapp_link}
+                whatsapp_text={service.whatsapp_text}
                 index={index + 2}
                 isToggled={isToggled}
               />
             ))
           ) : (
-            <div className="col-span-full bg-red-200 p-4 rounded-lg ">
-              <p
-                className={"col-span-full text-lg font-medium text-gray-800"}
-              >
+            <div className="col-span-full bg-red-200 p-4 rounded-lg">
+              <p className="text-lg font-medium text-gray-800">
                 No services available at the moment.
               </p>
             </div>
           )}
-        </div>
-
+        </motion.div>
       </div>
     </Section>
   );

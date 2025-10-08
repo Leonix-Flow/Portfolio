@@ -100,7 +100,7 @@ const Header = () => {
               href={link.href}
               className={`hover:text-gray-400 ${
                 link.onlyMobile ? "lg:hidden" : ""
-              } ${isActive(link.href) ? "text-gray-400" : ""}`}
+              } ${isActive(link.href) ? "text-gray-500" : ""}`}
             >
               {link.label}
             </a>
@@ -145,7 +145,7 @@ const Header = () => {
                 href={link.href}
                 onClick={closeMenu}
                 className={`hover:text-gray-400 py-2 px-2 rounded-lg hover:bg-[rgba(255,255,255,0.2)] ${
-                  isActive(link.href) ? "text-gray-400" : ""
+                  isActive(link.href) ? "text-gray-500" : ""
                 }`}
               >
                 {link.label}
@@ -155,7 +155,7 @@ const Header = () => {
               href="#Contact"
               onClick={closeMenu}
               className={`hover:text-gray-400 py-2 px-2 rounded-lg hover:bg-[rgba(255,255,255,0.2)] ${
-                isActive("#Contact") ? "text-gray-400" : ""
+                isActive("#Contact") ? "text-gray-500" : ""
               }`}
             >
               Contact Me

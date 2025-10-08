@@ -29,6 +29,6 @@ body {
 .light-theme {
   color-scheme: light;
   color: #000000;
-  background: linear-gradient(to bottom, #e9e9e9, #6e6e6e);
+  background: linear-gradient(to bottom, #e9e9e9, #aaaaaa);
 
 }

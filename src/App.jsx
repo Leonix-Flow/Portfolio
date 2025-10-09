@@ -31,13 +31,14 @@ const ThemedApp = () => {
   
   return (
     <div className={`scroll-smooth ${isToggled ? "light-theme" : "dark-theme"}`}>
+
       <div className="fixed w-screen px-4 z-20">
         <Header />
       </div>
       <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-30">
         <ToggleSwitch />
       </div>
-      <main>
+      <main className='bg-[]'>
         <Hero />
         <About />
         <Suspense fallback={<LoadingSpinner />}>

@@ -55,7 +55,7 @@ const ServiceCard = ({
         href={whatsapp_link}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block text-sm font-semibold text-gray-800 hover:text-gray-900 transition"
+        className={`inline-block text-sm font-semibold ${isToggled ? "text-gray-900 hover:text-gray-700" : "text-gray-300 hover:text-gray-100"}  transition`}
       >
         {whatsapp_text || "Contact Now"} →
       </a>

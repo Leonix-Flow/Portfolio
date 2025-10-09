@@ -80,14 +80,14 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 w-full z-50 px-2 lg:px-20">
       <div
-        className={`rounded-full px-4 h-10 w-full flex items-center justify-between 
+        className={`rounded-full px-6 h-10 w-full flex items-center justify-between 
         bg-[rgba(255,255,255,0.2)] backdrop-blur-sm shadow-md lg:py-4 lg:h-14 
         transition-all duration-500 ${atTop ? "mt-1" : "mt-2"}`}
       >
         {/* Logo */}
         <a
           href="/"
-          className="text-[1.3rem] font-bold font-serif block tracking-wide hover:opacity-80 transition-opacity"
+          className="text-[1.5rem] font-bold grenze-gotisch block tracking-wide hover:opacity-80 transition-opacity"
         >
           Leonix
         </a>

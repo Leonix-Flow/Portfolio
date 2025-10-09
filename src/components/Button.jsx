@@ -13,7 +13,7 @@ const Button = ({
     secondary: "bg-gray-500 text-white hover:bg-gray-600",
     success: "bg-green-500 text-white hover:bg-green-600",
     danger: "bg-red-500 text-white hover:bg-red-600",
-    ghost: "bg-transparent transition-colors duration-100 border border-gray-300 hover:bg-gray-200 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500",
+    ghost: "bg-white/30",
   };
 
   if (active) {
@@ -21,7 +21,7 @@ const Button = ({
     variants.secondary = "bg-gray-600 text-white hover:bg-gray-700";
     variants.success = "bg-green-600 text-white hover:bg-green-700";
     variants.danger = "bg-red-600 text-white hover:bg-red-700";
-    variants.ghost = "bg-transparent border border-gray-400 hover:bg-gray-400 dark:border-gray-500 dark:text-gray-100 dark:hover:bg-gray-500";
+    variants.ghost = "dark:bg-gray-600/30";
   }
   
   const baseClasses = `font-bold py-1 px-2 rounded-full ${variants[variant]} ${className}`;

@@ -218,14 +218,6 @@
     },
     {
       "id": 28,
-      "title": "Graphics Design Training",
-      "description": "Step-by-step design training for creatives.",
-      "category": "training",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20want%20to%20learn%20Graphics%20Design.%20What%20training%20programs%20do%20you%20offer?",
-      "whatsapp_text": "Learn Design Skills"
-    },
-    {
-      "id": 29,
       "title": "Project Mentorship",
       "description": "Guidance on project planning, coding, and presentation.",
       "category": "training",
@@ -233,15 +225,7 @@
       "whatsapp_text": "Get Project Mentorship"
     },
     {
-      "id": 30,
-      "title": "Tech Consultation for Businesses",
-      "description": "Advice on automation, app ideas, or digital transformation.",
-      "category": "training",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Tech%20Consultation%20for%20my%20business.%20Can%20we%20schedule%20a%20session?",
-      "whatsapp_text": "Book Consultation"
-    },
-    {
-      "id": 31,
+      "id": 29,
       "title": "SEO Optimization",
       "description": "Improve Google ranking, site visibility, and content performance.",
       "category": "digital",
@@ -249,7 +233,7 @@
       "whatsapp_text": "Boost My SEO"
     },
     {
-      "id": 32,
+      "id": 30,
       "title": "Analytics Dashboard Setup",
       "description": "Set up Google Analytics or custom dashboard for traffic insights.",
       "category": "digital",
@@ -257,7 +241,7 @@
       "whatsapp_text": "Setup Analytics"
     },
     {
-      "id": 33,
+      "id": 31,
       "title": "Payment Gateway Integration",
       "description": "Add Paystack, Flutterwave, or Stripe for online payments.",
       "category": "digital",

@@ -31,7 +31,7 @@ const ThemedApp = () => {
   
   return (
     <div className={`scroll-smooth ${isToggled ? "light-theme" : "dark-theme"}`}>
-
+      <div className=''><img src="/Logo.png" className='w-full h-full object-cover-screen' /></div>
       <div className="fixed w-screen px-4 z-20">
         <Header />
       </div>

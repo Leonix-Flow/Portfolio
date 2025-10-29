@@ -2,38 +2,22 @@
   "services": [
     {
       "id": 1,
-      "title": "Business Website Development",
+      "title": "Website Development",
       "description": "Professional and responsive websites for companies, schools, or organizations.",
       "category": "web-development",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I'm%20interested%20in%20your%20Business%20Website%20Development%20service.%20Can%20you%20provide%20more%20details%20and%20pricing?",
-      "whatsapp_text": "Inquire about Business Website"
+      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I'm%20interested%20in%20your%20Website%20Development%20service.%20Can%20you%20provide%20more%20details%20and%20pricing?",
+      "whatsapp_text": "Inquire about Website Development"
     },
     {
       "id": 2,
-      "title": "E-commerce Website",
-      "description": "Online stores with product listings, shopping carts, and payment gateways.",
-      "category": "web-development",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20want%20to%20build%20an%20E-commerce%20Website.%20Can%20we%20discuss%20features%20and%20pricing?",
-      "whatsapp_text": "Get E-commerce Quote"
-    },
-    {
-      "id": 3,
-      "title": "Custom Web Applications / Portals",
-      "description": "Tailor-made systems such as school management, HR, or inventory platforms.",
-      "category": "web-development",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20a%20Custom%20Web%20Application%20for%20my%20business.%20Can%20you%20help?",
-      "whatsapp_text": "Discuss Custom App"
-    },
-    {
-      "id": 4,
-      "title": "Mobile App Development",
+      "title": "Mobile App Developerment (Android/iOS)",
       "description": "Functional mobile apps for businesses using Flutter or React Native.",
       "category": "web-development",
       "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I'm%20interested%20in%20Mobile%20App%20Development%20for%20Android/iOS.%20What's%20the%20process?",
       "whatsapp_text": "Start Mobile App Project"
     },
     {
-      "id": 5,
+      "id": 3,
       "title": "Website Rebuild / Upgrade / Fix",
       "description": "Redesign outdated websites, fix bugs, or modernize with new features.",
       "category": "web-development",
@@ -41,23 +25,15 @@
       "whatsapp_text": "Fix My Website"
     },
     {
-      "id": 6,
-      "title": "Personal Portfolio Website",
-      "description": "Sleek one-page websites to showcase skills, resumes, or creative work.",
-      "category": "web-development",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20want%20a%20Personal%20Portfolio%20Website.%20What%20options%20do%20you%20offer?",
-      "whatsapp_text": "Build My Portfolio"
-    },
-    {
-      "id": 7,
-      "title": "Custom Software Solutions",
+      "id": 4,
+      "title": "Workflow Automation Software (POS/Management System)",
       "description": "POS, billing, and management systems for shops, schools, and offices.",
       "category": "software",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Custom%20Software%20Solutions%20(POS/Management%20System).%20Can%20we%20discuss?",
+      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Workflow%20Automation%20Software%20(POS/Management%20System).%20Can%20we%20discuss?",
       "whatsapp_text": "Get Software Quote"
     },
     {
-      "id": 8,
+      "id": 5,
       "title": "Chatbot / AI Integration",
       "description": "Smart chat assistants for websites or WhatsApp to handle customer inquiries.",
       "category": "software",
@@ -65,7 +41,7 @@
       "whatsapp_text": "Add AI Chatbot"
     },
     {
-      "id": 9,
+      "id": 6,
       "title": "API Development & Integration",
       "description": "Connect software systems or add extra functionality using secure APIs.",
       "category": "software",
@@ -73,7 +49,7 @@
       "whatsapp_text": "Discuss API Project"
     },
     {
-      "id": 10,
+      "id": 7,
       "title": "Database Design & Optimization",
       "description": "Create or manage databases for faster, more efficient data handling.",
       "category": "software",
@@ -81,15 +57,15 @@
       "whatsapp_text": "Optimize Database"
     },
     {
-      "id": 11,
-      "title": "Website Maintenance",
-      "description": "Regular updates, backups, content management, and security monitoring.",
+      "id": 8,
+      "title": "Website / App Maintenance Plans",
+      "description": "Regular updates, backups, security checks, and content management.",
       "category": "maintenance",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I'm%20interested%20in%20Website%20Maintenance%20plans.%20What%20packages%20do%20you%20offer?",
+      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I'm%20interested%20in%20Website/App%20Maintenance%20Plans.%20What%20do%20you%20offer?",
       "whatsapp_text": "Get Maintenance Plan"
     },
     {
-      "id": 12,
+      "id": 9,
       "title": "Bug Fixing / Debugging",
       "description": "Identify and fix coding or server issues in web or mobile apps.",
       "category": "maintenance",
@@ -97,7 +73,7 @@
       "whatsapp_text": "Fix Bugs Now"
     },
     {
-      "id": 13,
+      "id": 10,
       "title": "Server & Hosting Setup",
       "description": "Domain registration, SSL certificate, email setup, and deployment.",
       "category": "maintenance",
@@ -105,63 +81,15 @@
       "whatsapp_text": "Setup Hosting"
     },
     {
-      "id": 14,
-      "title": "Website Speed Optimization",
-      "description": "Improve site loading time and SEO with caching and performance tuning.",
-      "category": "maintenance",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20My%20website%20is%20slow%20and%20I%20need%20Speed%20Optimization.%20Can%20you%20help?",
-      "whatsapp_text": "Speed Up My Site"
-    },
-    {
-      "id": 15,
-      "title": "Logo Design",
-      "description": "Creative, memorable, and brand-focused logo for business or personal use.",
-      "category": "design",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20a%20professional%20Logo%20Design%20for%20my%20business.%20What's%20the%20process?",
-      "whatsapp_text": "Design My Logo"
-    },
-    {
-      "id": 16,
-      "title": "Flyer / Poster / Banner Design",
-      "description": "Eye-catching visuals for events, marketing, and advertising.",
-      "category": "design",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Flyer/Poster/Banner%20Design%20for%20an%20event.%20Can%20you%20create%20one?",
-      "whatsapp_text": "Create Flyer Design"
-    },
-    {
-      "id": 17,
-      "title": "Business Card & Letterhead Design",
-      "description": "Clean, professional designs for brand identity.",
-      "category": "design",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Business%20Card%20and%20Letterhead%20Design.%20What%20options%20are%20available?",
-      "whatsapp_text": "Design Business Cards"
-    },
-    {
-      "id": 18,
-      "title": "Social Media Post Design",
-      "description": "Custom posts and templates for Instagram, Facebook, or TikTok branding.",
-      "category": "design",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Social%20Media%20Post%20Designs%20for%20my%20brand.%20Can%20you%20help?",
-      "whatsapp_text": "Get Social Media Designs"
-    },
-    {
-      "id": 19,
-      "title": "Brand Identity Package",
-      "description": "Complete brand setup including logo, fonts, color palette, and mockups.",
-      "category": "design",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20want%20a%20complete%20Brand%20Identity%20Package.%20What's%20included?",
-      "whatsapp_text": "Create Brand Identity"
-    },
-    {
-      "id": 20,
-      "title": "UI/UX Design",
+      "id": 11,
+      "title": "UI/UX Mockup Design",
       "description": "Professional web or app interface mockups with user-centered layouts.",
       "category": "design",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20UI/UX%20Design%20services%20for%20my%20project.%20Can%20we%20discuss?",
-      "whatsapp_text": "Start UI/UX Design"
+      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20UI/UX%20Mockup%20Design%20services%20for%20my%20project.%20Can%20we%20discuss?",
+      "whatsapp_text": "Start UI/UX Mockup Design"
     },
     {
-      "id": 21,
+      "id": 12,
       "title": "Document Typing",
       "description": "Fast, accurate typing for reports, letters, or school work.",
       "category": "document",
@@ -169,84 +97,12 @@
       "whatsapp_text": "Type My Documents"
     },
     {
-      "id": 22,
-      "title": "Data Entry & Spreadsheet Work",
-      "description": "Organize and input business or academic data accurately.",
-      "category": "document",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Data%20Entry%20and%20Spreadsheet%20work%20done.%20Can%20you%20assist?",
-      "whatsapp_text": "Handle Data Entry"
-    },
-    {
-      "id": 23,
-      "title": "CV / Resume Design & Formatting",
-      "description": "Clean, modern resumes and cover letters for professionals.",
-      "category": "document",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20CV/Resume%20Design%20and%20Formatting.%20What%20packages%20do%20you%20offer?",
-      "whatsapp_text": "Design My CV"
-    },
-    {
-      "id": 24,
-      "title": "Proposal / Report Formatting",
-      "description": "Well-structured layouts for business proposals and school projects.",
-      "category": "document",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Proposal/Report%20Formatting%20services.%20Can%20you%20help?",
-      "whatsapp_text": "Format My Proposal"
-    },
-    {
-      "id": 25,
-      "title": "PDF Editing & Conversion",
-      "description": "Modify or convert documents quickly and securely.",
-      "category": "document",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20PDF%20Editing%20and%20Conversion%20services.%20What%20can%20you%20do?",
-      "whatsapp_text": "Edit/Convert PDF"
-    },
-    {
-      "id": 26,
-      "title": "Academic Project Typing",
-      "description": "Neatly formatted and referenced project typing for students.",
-      "category": "document",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Academic%20Project%20Typing%20services%20for%20my%20school%20work.%20What's%20the%20process?",
-      "whatsapp_text": "Type Academic Project"
-    },
-    {
-      "id": 27,
-      "title": "Coding Lessons",
-      "description": "One-on-one or group lessons for beginners and intermediates.",
-      "category": "training",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I'm%20interested%20in%20Coding%20Lessons.%20What%20programming%20languages%20do%20you%20teach?",
-      "whatsapp_text": "Start Coding Lessons"
-    },
-    {
-      "id": 28,
-      "title": "Project Mentorship",
-      "description": "Guidance on project planning, coding, and presentation.",
-      "category": "training",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Project%20Mentorship%20for%20my%20final%20year%20project.%20Can%20you%20guide%20me?",
-      "whatsapp_text": "Get Project Mentorship"
-    },
-    {
-      "id": 29,
+      "id": 13,
       "title": "SEO Optimization",
       "description": "Improve Google ranking, site visibility, and content performance.",
       "category": "digital",
       "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20SEO%20Optimization%20for%20my%20website.%20What%20strategies%20do%20you%20use?",
       "whatsapp_text": "Boost My SEO"
-    },
-    {
-      "id": 30,
-      "title": "Analytics Dashboard Setup",
-      "description": "Set up Google Analytics or custom dashboard for traffic insights.",
-      "category": "digital",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Analytics%20Dashboard%20Setup%20for%20my%20website.%20Can%20you%20help?",
-      "whatsapp_text": "Setup Analytics"
-    },
-    {
-      "id": 31,
-      "title": "Payment Gateway Integration",
-      "description": "Add Paystack, Flutterwave, or Stripe for online payments.",
-      "category": "digital",
-      "whatsapp_link": "https://wa.me/2349074155361?text=Hello!%20I%20need%20Payment%20Gateway%20Integration%20on%20my%20website.%20Which%20gateways%20do%20you%20support?",
-      "whatsapp_text": "Add Payments"
     }
   ],
   "categories": [
@@ -264,15 +120,11 @@
     },
     {
       "id": "design",
-      "name": "Graphics & Design"
+      "name": "Design Services"
     },
     {
       "id": "document",
       "name": "Document Services"
-    },
-    {
-      "id": "training",
-      "name": "Training & Consultation"
     },
     {
       "id": "digital",

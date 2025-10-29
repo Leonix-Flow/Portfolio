@@ -95,10 +95,17 @@ const Hero = () => {
               text={[
                 "Web Developer",
                 "Software Engineer",
-                "UI/UX Designer",
                 "Freelancer",
+                "UI/UX Designer",
+                "Cybersecurity Enthusiast",
+                "Open Source Contributor",
+                "Game Developer",
+                "Problem Solver",
+                "Team Player",
+                "Fast Learner",
+                "Creative Thinker",
                 "Tech Enthusiast",
-                "Gamer",
+                "Leonix"
               ]}
               typingSpeed={70}
               pauseDuration={1700}
